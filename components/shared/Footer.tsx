@@ -28,8 +28,8 @@ const Footer = () => {
     ];
 
     const company = [
-        { label: 'About Us', href: '#about' },
-        { label: 'Our Team', href: '#team' },
+        { label: 'About Us', href: '/about' },
+        { label: 'Our Team', href: '/about#team' },
         { label: 'Careers', href: '#careers' },
         { label: 'Case Studies', href: '#case-studies' },
         { label: 'Blog', href: '#blog' },

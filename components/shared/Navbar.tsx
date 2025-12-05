@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Menu, X, Phone, Calendar } from 'lucide-react';
 import MobileMenu from './MobileMenu';
+import logo from '../../public/assets/arvion-logo.png';
 
 
 const Navbar = () => {
@@ -74,14 +75,14 @@ const Navbar = () => {
     ];
 
     const navItems = [
-        { label: 'Projects', href: '#projects' },
+        { label: 'Projects', href: '/projects' },
         { label: 'Packages', href: '#packages' },
-        { label: 'Shop', href: '#shop' },
+        { label: 'Shop', href: '/shop' },
     ];
 
     const companyItems = [
-        { label: 'About Us', href: '#about' },
-        { label: 'Contact', href: '#contact' },
+        { label: 'About Us', href: '/about' },
+        { label: 'Contact', href: '/contact' },
         { label: 'Blog', href: '#blog' },
     ];
 
@@ -103,11 +104,11 @@ const Navbar = () => {
                         {/* Logo (Center on mobile, Left on desktop) */}
                         <Link href="/" >
                             <Image
-                                src="/assets/arvion-logo.png"
+                                src={logo}
                                 alt="Arvion Tech"
                                 width={120}
                                 height={40}
-                                className="h-12 w-auto object-contain"
+                                className="h-12 w-auto object-contain md:-ml-4"
                                 priority
                             />
                         </Link>
@@ -188,7 +189,7 @@ const Navbar = () => {
                         {/* Desktop CTA Buttons */}
                         <div className="hidden lg:flex items-center gap-4">
                             <Link
-                                href="#contact"
+                                href="/contact"
                                 className="flex items-center gap-2 px-5 py-2.5 text-[#703eff] border-2 border-[#703eff] rounded-full hover:bg-gradient-to-r hover:from-[#703eff] hover:to-[#0254b9] hover:text-white hover:border-transparent font-medium transition-all"
                             >
                                 <Phone className="w-4 h-4" />
@@ -206,7 +207,7 @@ const Navbar = () => {
                         {/* Mobile: Action Icons (Right) */}
                         <div className="lg:hidden flex items-center gap-2">
                             <Link
-                                href="#contact"
+                                href="/contact"
                                 className="p-2.5 rounded-full border-2 border-[#703eff] text-[#703eff] hover:bg-gradient-to-r hover:from-[#703eff] hover:to-[#0254b9] hover:text-white hover:border-transparent transition-colors"
                                 aria-label="Get in touch"
                             >

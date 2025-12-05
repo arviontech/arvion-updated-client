@@ -19,6 +19,8 @@ export interface Project {
     technologies: Technology[];
     images: string[];
     forSale: boolean;
+    price?: number;
+    originalPrice?: number;
     createdAt: string;
     updatedAt: string;
     links: {
@@ -72,6 +74,26 @@ export const getAllProjects = async (page: number = 1, limit: number = 10): Prom
     } catch (error) {
         if (axios.isAxiosError(error)) {
             throw new Error(error.response?.data?.message || 'Failed to fetch projects');
+        }
+        throw new Error('An unexpected error occurred');
+    }
+};
+
+/**
+ * Get projects for sale with pagination
+ */
+export const getProjectsForSale = async (page: number = 1, limit: number = 10): Promise<ProjectsResponse> => {
+    try {
+        const response = await axios.get<ProjectsResponse>(
+            `${API_BASE_URL}/projects`,
+            {
+                params: { page, limit, forSale: true }
+            }
+        );
+        return response.data;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            throw new Error(error.response?.data?.message || 'Failed to fetch projects for sale');
         }
         throw new Error('An unexpected error occurred');
     }

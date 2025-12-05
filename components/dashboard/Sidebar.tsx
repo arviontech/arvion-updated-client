@@ -11,7 +11,8 @@ import {
     FileText,
     Code,
     ChevronLeft,
-    ChevronRight
+    ChevronRight,
+    Users
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -24,6 +25,11 @@ const Sidebar = () => {
             label: 'Dashboard',
             href: '/admin',
             icon: LayoutDashboard,
+        },
+        {
+            label: 'Teams',
+            href: '/admin/teams',
+            icon: Users,
         },
         {
             label: 'Skills',
