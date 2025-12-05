@@ -88,7 +88,7 @@ const Navbar = () => {
     return (
         <>
             <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-100">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-20">
 
                         {/* Mobile: Hamburger Menu (Left) */}
@@ -189,14 +189,14 @@ const Navbar = () => {
                         <div className="hidden lg:flex items-center gap-4">
                             <Link
                                 href="#contact"
-                                className="flex items-center gap-2 px-5 py-2.5 text-blue-600 border-2 border-blue-600 rounded-lg hover:bg-blue-50 font-medium transition-all"
+                                className="flex items-center gap-2 px-5 py-2.5 text-[#703eff] border-2 border-[#703eff] rounded-full hover:bg-gradient-to-r hover:from-[#703eff] hover:to-[#0254b9] hover:text-white hover:border-transparent font-medium transition-all"
                             >
                                 <Phone className="w-4 h-4" />
                                 Get In Touch
                             </Link>
                             <Link
                                 href="#meeting"
-                                className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-all shadow-lg shadow-blue-600/30"
+                                className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#703eff] to-[#0254b9] text-white rounded-full hover:from-[#5f2de0] hover:to-[#0148a3] font-medium transition-all shadow-lg shadow-[#0254b9]/30"
                             >
                                 <Calendar className="w-4 h-4" />
                                 Book a Meeting
@@ -207,14 +207,14 @@ const Navbar = () => {
                         <div className="lg:hidden flex items-center gap-2">
                             <Link
                                 href="#contact"
-                                className="p-2.5 rounded-lg border-2 border-blue-600 text-blue-600 hover:bg-blue-50 transition-colors"
+                                className="p-2.5 rounded-full border-2 border-[#703eff] text-[#703eff] hover:bg-gradient-to-r hover:from-[#703eff] hover:to-[#0254b9] hover:text-white hover:border-transparent transition-colors"
                                 aria-label="Get in touch"
                             >
                                 <Phone className="w-5 h-5" />
                             </Link>
                             <Link
                                 href="#meeting"
-                                className="p-2.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/30"
+                                className="p-2.5 rounded-full bg-gradient-to-r from-[#703eff] to-[#0254b9] text-white hover:from-[#5f2de0] hover:to-[#0148a3] transition-colors shadow-lg shadow-[#0254b9]/30"
                                 aria-label="Book a meeting"
                             >
                                 <Calendar className="w-5 h-5" />

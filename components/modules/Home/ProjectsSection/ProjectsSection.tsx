@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { projectService, Project } from '@/services/projects/ProjectService';
+import { getAllProjects, Project } from '@/services/projects/ProjectService';
 import ProjectCard from './ProjectCard';
 import ProjectCardLoadingSkeleton from './ProjectCardLoadingSkeleton';
 import { AlertCircle, RefreshCw } from 'lucide-react';
@@ -15,7 +15,7 @@ export default function ProjectsSection() {
         try {
             setLoading(true);
             setError(null);
-            const response = await projectService.getAllProjects(1, 6); // Get first 6 projects
+            const response = await getAllProjects(1, 6); // Get first 6 projects
             setProjects(response.data);
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Failed to load projects');
@@ -30,7 +30,7 @@ export default function ProjectsSection() {
 
     return (
         <section id="projects" className="py-16 lg:py-24 bg-gray-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Section Header */}
                 <div className="text-center mb-16">
                     <span className="text-blue-600 font-semibold tracking-wider uppercase text-sm">
@@ -96,7 +96,7 @@ export default function ProjectsSection() {
                 {/* View All Projects Button */}
                 {!loading && !error && projects.length > 0 && (
                     <div className="text-center mt-12">
-                        <button className="px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-500/30 hover:-translate-y-1">
+                        <button className="px-8 py-4 bg-gradient-to-r from-[#703eff] to-[#0254b9] hover:from-[#5f2de0] hover:to-[#0148a3] text-white font-semibold rounded-full transition-all shadow-lg hover:shadow-[#0254b9]/30 hover:-translate-y-1">
                             View All Projects
                         </button>
                     </div>

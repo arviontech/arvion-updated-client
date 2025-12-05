@@ -3,7 +3,7 @@ export default function Loading() {
         <div className="min-h-screen bg-white">
             {/* Hero Skeleton */}
             <div className="relative pt-24 pb-16 bg-linear-to-br from-blue-50 to-white">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
                     {/* Breadcrumb skeleton */}
                     <div className="h-4 w-64 bg-gray-200 rounded animate-pulse mb-6" />
 
@@ -14,7 +14,7 @@ export default function Loading() {
             </div>
 
             {/* Content Sections Skeleton */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
+            <div className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
                 {/* Section 1 */}
                 <div className="space-y-4">
                     <div className="h-8 w-1/3 bg-gray-200 rounded animate-pulse mb-8" />

@@ -303,3 +303,80 @@ a {
     filter: brightness(1.2);
   }
 }
+
+/* Primary Button - Gradient with rounded-full */
+.btn-primary {
+  background: linear-gradient(135deg, #703eff 0%, #0254b9 100%);
+  color: white;
+  font-weight: 600;
+  border-radius: 9999px;
+  padding: 0.75rem 2rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(2, 84, 185, 0.3);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #5f2de0 0%, #0148a3 100%);
+  box-shadow: 0 6px 20px rgba(2, 84, 185, 0.4);
+  transform: translateY(-2px);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Small Button Variant */
+.btn-primary-sm {
+  background: linear-gradient(135deg, #703eff 0%, #0254b9 100%);
+  color: white;
+  font-weight: 500;
+  border-radius: 9999px;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(2, 84, 185, 0.3);
+}
+
+.btn-primary-sm:hover {
+  background: linear-gradient(135deg, #5f2de0 0%, #0148a3 100%);
+  box-shadow: 0 6px 20px rgba(2, 84, 185, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Large Button Variant */
+.btn-primary-lg {
+  background: linear-gradient(135deg, #703eff 0%, #0254b9 100%);
+  color: white;
+  font-weight: 600;
+  border-radius: 9999px;
+  padding: 1rem 2.5rem;
+  font-size: 1.125rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(2, 84, 185, 0.3);
+}
+
+.btn-primary-lg:hover {
+  background: linear-gradient(135deg, #5f2de0 0%, #0148a3 100%);
+  box-shadow: 0 6px 20px rgba(2, 84, 185, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Secondary/Outline Button */
+.btn-secondary {
+  background: transparent;
+  color: #703eff;
+  font-weight: 600;
+  border-radius: 9999px;
+  padding: 0.75rem 2rem;
+  border: 2px solid #703eff;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, #703eff 0%, #0254b9 100%);
+  color: white;
+  border-color: transparent;
+  transform: translateY(-2px);
+}

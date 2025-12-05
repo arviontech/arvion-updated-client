@@ -34,7 +34,7 @@ const BannerContent = () => {
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Link
                     href="#contact"
-                    className="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 font-semibold text-lg transition-all shadow-xl shadow-blue-600/30 hover:shadow-2xl hover:shadow-blue-600/40 hover:scale-105"
+                    className="group inline-flex items-center justify-center gap-3 px-8 py-3 bg-gradient-to-r from-[#703eff] to-[#0254b9] text-white rounded-full hover:from-[#5f2de0] hover:to-[#0148a3] font-semibold text-lg transition-all shadow-xl shadow-[#0254b9]/30 hover:shadow-2xl hover:shadow-[#0254b9]/40 hover:scale-105"
                 >
                     <Phone className="w-5 h-5" />
                     Get In Touch
@@ -43,7 +43,7 @@ const BannerContent = () => {
 
                 <Link
                     href="#meeting"
-                    className="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-white text-blue-600 border-2 border-blue-600 rounded-xl hover:bg-blue-50 font-semibold text-lg transition-all hover:scale-105"
+                    className="group inline-flex items-center justify-center gap-3 px-8 py-3 bg-white text-[#703eff] border-2 border-[#703eff] rounded-full hover:bg-gradient-to-r hover:from-[#703eff] hover:to-[#0254b9] hover:text-white hover:border-transparent font-semibold text-lg transition-all hover:scale-105"
                 >
                     <Calendar className="w-5 h-5" />
                     Book a Meeting

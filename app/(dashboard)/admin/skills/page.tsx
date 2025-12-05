@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { Plus, Search, Trash2, Upload, X, Wrench } from 'lucide-react';
-import { skillService, Skill, Skill_Category, SkillCategory } from '@/services/skills/SkillService';
+import { getAllSkills, createSkill, deleteSkill, Skill, Skill_Category, SkillCategory } from '@/services/skills/SkillService';
 import { toast } from 'sonner';
 
 const SkillsPage = () => {
@@ -39,7 +39,7 @@ const SkillsPage = () => {
         setIsLoading(true);
         try {
             const category = selectedCategory === 'All' ? undefined : selectedCategory;
-            const data = await skillService.getAllSkills(category);
+            const data = await getAllSkills(category);
             setSkills(data);
             setFilteredSkills(data);
         } catch (error: any) {
@@ -53,7 +53,7 @@ const SkillsPage = () => {
         if (!confirm(`Are you sure you want to delete "${skill.name}"?`)) return;
 
         try {
-            await skillService.deleteSkill(skill._id);
+            await deleteSkill(skill._id);
             toast.success('Skill deleted successfully');
             fetchSkills();
         } catch (error: any) {
@@ -83,7 +83,7 @@ const SkillsPage = () => {
 
         setIsSubmitting(true);
         try {
-            await skillService.createSkill(formData, selectedIcon);
+            await createSkill(formData, selectedIcon);
             toast.success('Skill created successfully');
             setShowModal(false);
             resetForm();
@@ -137,8 +137,8 @@ const SkillsPage = () => {
                     <button
                         onClick={() => setSelectedCategory('All')}
                         className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${selectedCategory === 'All'
-                                ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30'
-                                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                            ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30'
+                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                             }`}
                     >
                         All
@@ -148,8 +148,8 @@ const SkillsPage = () => {
                             key={category}
                             onClick={() => setSelectedCategory(category)}
                             className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${selectedCategory === category
-                                    ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30'
-                                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                                ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30'
+                                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                 }`}
                         >
                             {category}

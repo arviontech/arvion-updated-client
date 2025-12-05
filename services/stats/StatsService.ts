@@ -9,23 +9,19 @@ export interface DashboardStats {
     // revenue: number; // Add when backend supports it
 }
 
-class StatsService {
-    /**
-     * Get dashboard statistics
-     */
-    async getDashboardStats(): Promise<DashboardStats> {
-        try {
-            const response = await axios.get<{ data: DashboardStats }>(
-                `${API_BASE_URL}/stats`
-            );
-            return response.data.data;
-        } catch (error) {
-            if (axios.isAxiosError(error)) {
-                throw new Error(error.response?.data?.message || 'Failed to fetch dashboard stats');
-            }
-            throw new Error('An unexpected error occurred');
+/**
+ * Get dashboard statistics
+ */
+export const getDashboardStats = async (): Promise<DashboardStats> => {
+    try {
+        const response = await axios.get<{ data: DashboardStats }>(
+            `${API_BASE_URL}/stats`
+        );
+        return response.data.data;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            throw new Error(error.response?.data?.message || 'Failed to fetch dashboard stats');
         }
+        throw new Error('An unexpected error occurred');
     }
-}
-
-export const statsService = new StatsService();
+};

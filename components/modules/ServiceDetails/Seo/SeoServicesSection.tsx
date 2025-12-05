@@ -59,7 +59,7 @@ const SeoServicesSection = () => {
 
     return (
         <section className="py-16 lg:py-24 bg-gray-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-16">
                     <span className="text-blue-600 font-semibold tracking-wider uppercase text-sm">Our SEO Expertise</span>
                     <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-gray-900">

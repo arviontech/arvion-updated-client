@@ -41,7 +41,7 @@ const CTASection = () => {
             </div>
 
             {/* Content */}
-            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="relative max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header Section */}
                 <div className="text-center mb-12 sm:mb-16 lg:mb-20">
                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 mb-6">
@@ -109,7 +109,7 @@ const CTASection = () => {
                 <div className="text-center mt-12 sm:mt-16">
                     <a
                         href="#contact"
-                        className="inline-flex items-center gap-3 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-base sm:text-lg transition-all shadow-2xl shadow-blue-600/30 hover:shadow-blue-500/40 hover:scale-105"
+                        className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#703eff] to-[#0254b9] hover:from-[#5f2de0] hover:to-[#0148a3] text-white rounded-full font-semibold text-base sm:text-lg transition-all shadow-2xl shadow-[#0254b9]/30 hover:shadow-[#0254b9]/40 hover:scale-105"
                     >
                         Start Your Project
                         <ArrowRight className="w-5 h-5" />

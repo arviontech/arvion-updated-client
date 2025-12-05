@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Project, projectService } from '@/services/projects/ProjectService';
+import { Project, extractPlainText } from '@/services/projects/ProjectService';
 import { ExternalLink } from 'lucide-react';
 
 interface ProjectCardProps {
@@ -9,7 +9,7 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ project }: ProjectCardProps) {
     // Extract plain text from HTML description for preview
-    const descriptionPreview = projectService.extractPlainText(project.description, 150);
+    const descriptionPreview = extractPlainText(project.description, 150);
 
     return (
         <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-blue-200">
@@ -78,7 +78,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                 <div className="flex gap-3">
                     <Link
                         href={`/project/${project.slug}`}
-                        className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-500/30 hover:-translate-y-1"
+                        className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-[#703eff] to-[#0254b9] hover:from-[#5f2de0] hover:to-[#0148a3] text-white font-semibold rounded-full transition-all shadow-lg hover:shadow-[#0254b9]/30 hover:-translate-y-1"
                     >
                         View Details
                     </Link>
@@ -86,7 +86,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                         href={project.live}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-4 py-3 bg-white text-blue-600 font-semibold rounded-lg border-2 border-blue-600 hover:bg-blue-50 transition-all"
+                        className="px-4 py-3 bg-white text-[#703eff] font-semibold rounded-full border-2 border-[#703eff] hover:bg-gradient-to-r hover:from-[#703eff] hover:to-[#0254b9] hover:text-white hover:border-transparent transition-all"
                         title="View Live Project"
                     >
                         <ExternalLink className="w-5 h-5" />

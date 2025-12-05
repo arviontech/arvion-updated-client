@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, ChangeEvent } from 'react';
 import { X, Upload, Trash2, Plus } from 'lucide-react';
-import { projectService, CreateProjectData, Technology } from '@/services/projects/ProjectService';
+import { getAllSkills, generateSlug, createProject, updateProject, CreateProjectData, Technology } from '@/services/projects/ProjectService';
 import { toast } from 'sonner';
 
 interface ProjectFormModalProps {
@@ -48,7 +48,7 @@ const ProjectFormModal = ({ isOpen, onClose, onSuccess, editProject }: ProjectFo
 
     const fetchSkills = async () => {
         try {
-            const data = await projectService.getAllSkills();
+            const data = await getAllSkills();
             setSkills(data);
         } catch (error) {
             toast.error('Failed to fetch technologies');
@@ -60,7 +60,7 @@ const ProjectFormModal = ({ isOpen, onClose, onSuccess, editProject }: ProjectFo
         setFormData({
             ...formData,
             title,
-            slug: projectService.generateSlug(title),
+            slug: generateSlug(title),
         });
     };
 
@@ -114,10 +114,10 @@ const ProjectFormModal = ({ isOpen, onClose, onSuccess, editProject }: ProjectFo
         setIsLoading(true);
         try {
             if (editProject) {
-                await projectService.updateProject(editProject._id, formData, selectedImages);
+                await updateProject(editProject._id, formData, selectedImages);
                 toast.success('Project updated successfully');
             } else {
-                await projectService.createProject(formData, selectedImages);
+                await createProject(formData, selectedImages);
                 toast.success('Project created successfully');
             }
             onSuccess();

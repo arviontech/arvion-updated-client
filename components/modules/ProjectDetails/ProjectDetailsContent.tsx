@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { projectService, Project } from '@/services/projects/ProjectService';
+import { getProjectBySlug, Project } from '@/services/projects/ProjectService';
 import { ExternalLink, ArrowLeft, Calendar, AlertCircle, RefreshCw } from 'lucide-react';
 
 interface ProjectDetailsContentProps {
@@ -22,7 +22,7 @@ export default function ProjectDetailsContent({ slug }: ProjectDetailsContentPro
         try {
             setLoading(true);
             setError(null);
-            const data = await projectService.getProjectBySlug(slug);
+            const data = await getProjectBySlug(slug);
             setProject(data);
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Failed to load project');
@@ -39,7 +39,7 @@ export default function ProjectDetailsContent({ slug }: ProjectDetailsContentPro
     if (loading) {
         return (
             <div className="min-h-screen bg-white pt-24 pb-16">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
                     {/* Back Button Skeleton */}
                     <div className="h-10 w-32 bg-gray-200 rounded-lg mb-8 animate-pulse" />
 
@@ -110,7 +110,7 @@ export default function ProjectDetailsContent({ slug }: ProjectDetailsContentPro
 
     return (
         <div className="min-h-screen bg-white pt-24 pb-16">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Back Button */}
                 <button
                     onClick={() => router.back()}
@@ -167,7 +167,7 @@ export default function ProjectDetailsContent({ slug }: ProjectDetailsContentPro
                                 href={project.live}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-500/30 hover:-translate-y-1"
+                                className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#703eff] to-[#0254b9] hover:from-[#5f2de0] hover:to-[#0148a3] text-white font-semibold rounded-full transition-all shadow-lg hover:shadow-[#0254b9]/30 hover:-translate-y-1"
                             >
                                 View Live Project
                                 <ExternalLink className="w-5 h-5" />
@@ -201,8 +201,8 @@ export default function ProjectDetailsContent({ slug }: ProjectDetailsContentPro
                                         key={index}
                                         onClick={() => setSelectedImage(index)}
                                         className={`relative h-20 rounded-lg overflow-hidden border-2 transition-all ${selectedImage === index
-                                                ? 'border-blue-600 ring-2 ring-blue-200'
-                                                : 'border-gray-200 hover:border-blue-400'
+                                            ? 'border-blue-600 ring-2 ring-blue-200'
+                                            : 'border-gray-200 hover:border-blue-400'
                                             }`}
                                     >
                                         <Image

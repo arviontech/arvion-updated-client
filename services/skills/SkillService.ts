@@ -27,68 +27,64 @@ export interface CreateSkillData {
     category: SkillCategory;
 }
 
-class SkillService {
-    /**
-     * Get all skills with optional category filter
-     */
-    async getAllSkills(category?: string): Promise<Skill[]> {
-        try {
-            const response = await axios.get<{ data: Skill[] }>(
-                `${API_BASE_URL}/skills`,
-                {
-                    params: { category }
-                }
-            );
-            return response.data.data;
-        } catch (error) {
-            if (axios.isAxiosError(error)) {
-                throw new Error(error.response?.data?.message || 'Failed to fetch skills');
+/**
+ * Get all skills with optional category filter
+ */
+export const getAllSkills = async (category?: string): Promise<Skill[]> => {
+    try {
+        const response = await axios.get<{ data: Skill[] }>(
+            `${API_BASE_URL}/skills`,
+            {
+                params: { category }
             }
-            throw new Error('An unexpected error occurred');
+        );
+        return response.data.data;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            throw new Error(error.response?.data?.message || 'Failed to fetch skills');
         }
+        throw new Error('An unexpected error occurred');
     }
+};
 
-    /**
-     * Create a new skill
-     */
-    async createSkill(data: CreateSkillData, icon: File): Promise<Skill> {
-        try {
-            const formData = new FormData();
-            formData.append('name', data.name);
-            formData.append('category', data.category);
-            formData.append('icon', icon);
+/**
+ * Create a new skill
+ */
+export const createSkill = async (data: CreateSkillData, icon: File): Promise<Skill> => {
+    try {
+        const formData = new FormData();
+        formData.append('name', data.name);
+        formData.append('category', data.category);
+        formData.append('icon', icon);
 
-            const response = await axios.post<{ data: Skill }>(
-                `${API_BASE_URL}/skills`,
-                formData,
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                }
-            );
-            return response.data.data;
-        } catch (error) {
-            if (axios.isAxiosError(error)) {
-                throw new Error(error.response?.data?.message || 'Failed to create skill');
+        const response = await axios.post<{ data: Skill }>(
+            `${API_BASE_URL}/skills`,
+            formData,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
             }
-            throw new Error('An unexpected error occurred');
+        );
+        return response.data.data;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            throw new Error(error.response?.data?.message || 'Failed to create skill');
         }
+        throw new Error('An unexpected error occurred');
     }
+};
 
-    /**
-     * Delete a skill by ID
-     */
-    async deleteSkill(id: string): Promise<void> {
-        try {
-            await axios.delete(`${API_BASE_URL}/skills/${id}`);
-        } catch (error) {
-            if (axios.isAxiosError(error)) {
-                throw new Error(error.response?.data?.message || 'Failed to delete skill');
-            }
-            throw new Error('An unexpected error occurred');
+/**
+ * Delete a skill by ID
+ */
+export const deleteSkill = async (id: string): Promise<void> => {
+    try {
+        await axios.delete(`${API_BASE_URL}/skills/${id}`);
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            throw new Error(error.response?.data?.message || 'Failed to delete skill');
         }
+        throw new Error('An unexpected error occurred');
     }
-}
-
-export const skillService = new SkillService();
+};

@@ -14,7 +14,7 @@ export default function HeroSection() {
                 <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-cyan-100/40 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4" />
             </div>
 
-            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="relative max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
                     {/* Left: Content (7 columns) */}
                     <div className="lg:col-span-7 flex flex-col justify-center">
@@ -50,7 +50,7 @@ export default function HeroSection() {
 
                         {/* CTA Buttons */}
                         <div className="flex flex-wrap gap-4 animate-fade-in-up animation-delay-300">
-                            <button className="px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-500/30 hover:-translate-y-1 flex items-center gap-2">
+                            <button className="px-8 py-4 bg-gradient-to-r from-[#703eff] to-[#0254b9] hover:from-[#5f2de0] hover:to-[#0148a3] text-white font-semibold rounded-full transition-all shadow-lg hover:shadow-[#0254b9]/30 hover:-translate-y-1 flex items-center gap-2">
                                 Start Your Project
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />

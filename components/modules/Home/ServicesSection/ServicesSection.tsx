@@ -61,7 +61,7 @@ const ServicesSection = () => {
                 <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-400/5 rounded-full blur-3xl" />
             </div>
 
-            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="relative max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Section Header */}
                 <div className="text-center mb-12 lg:mb-16">
                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 rounded-full mb-4">
@@ -151,7 +151,7 @@ const ServicesSection = () => {
                 {/* Bottom CTA */}
                 <div className="text-center mt-12 lg:mt-16">
                     <p className="text-gray-600 mb-4">Need a custom solution?</p>
-                    <button className="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl">
+                    <button className="px-8 py-3 bg-gradient-to-r from-[#703eff] to-[#0254b9] hover:from-[#5f2de0] hover:to-[#0148a3] text-white font-semibold rounded-full transition-all shadow-lg hover:shadow-xl">
                         Get in Touch
                     </button>
                 </div>

@@ -18,7 +18,7 @@ import {
 import StatsCard from '@/components/dashboard/StatsCard';
 import RevenueChart from '@/components/dashboard/RevenueChart';
 import ActivityFeed from '@/components/dashboard/ActivityFeed';
-import { statsService, DashboardStats } from '@/services/stats/StatsService';
+import { getDashboardStats, DashboardStats } from '@/services/stats/StatsService';
 
 const DashboardAdminPage = () => {
     const [stats, setStats] = useState<DashboardStats>({
@@ -34,7 +34,7 @@ const DashboardAdminPage = () => {
 
     const fetchStats = async () => {
         try {
-            const data = await statsService.getDashboardStats();
+            const data = await getDashboardStats();
             setStats(data);
         } catch (error: any) {
             console.error('Failed to fetch stats:', error);

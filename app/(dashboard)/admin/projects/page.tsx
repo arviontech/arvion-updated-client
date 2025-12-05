@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Plus, Search, Edit2, Trash2, ExternalLink, Calendar } from 'lucide-react';
-import { projectService, Project } from '@/services/projects/ProjectService';
+import { getAllProjects, deleteProject, Project } from '@/services/projects/ProjectService';
 import { toast } from 'sonner';
 import ProjectFormModal from '@/components/dashboard/ProjectFormModal';
 
@@ -29,7 +29,7 @@ const ProjectsPage = () => {
     const fetchProjects = async () => {
         setIsLoading(true);
         try {
-            const response = await projectService.getAllProjects(1, 100);
+            const response = await getAllProjects(1, 100);
             setProjects(response.data);
             setFilteredProjects(response.data);
         } catch (error: any) {
@@ -43,7 +43,7 @@ const ProjectsPage = () => {
         if (!confirm(`Are you sure you want to delete "${project.title}"?`)) return;
 
         try {
-            await projectService.deleteProject(project._id);
+            await deleteProject(project._id);
             toast.success('Project deleted successfully');
             fetchProjects();
         } catch (error: any) {
@@ -190,8 +190,8 @@ const ProjectsPage = () => {
                                         <td className="px-6 py-4">
                                             <span
                                                 className={`px-3 py-1 rounded-full text-xs font-semibold ${project.forSale
-                                                        ? 'bg-green-100 text-green-700'
-                                                        : 'bg-gray-100 text-gray-700'
+                                                    ? 'bg-green-100 text-green-700'
+                                                    : 'bg-gray-100 text-gray-700'
                                                     }`}
                                             >
                                                 {project.forSale ? 'For Sale' : 'Portfolio'}

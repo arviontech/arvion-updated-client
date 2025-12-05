@@ -133,14 +133,14 @@ const MobileMenu = ({ isOpen, onClose, services, navItems, companyItems }: Mobil
                         <Link
                             href="#contact"
                             onClick={onClose}
-                            className="block w-full text-center px-5 py-3 text-blue-600 border-2 border-blue-600 rounded-lg hover:bg-blue-50 font-medium transition-all"
+                            className="block w-full text-center px-5 py-3 text-[#703eff] border-2 border-[#703eff] rounded-full hover:bg-gradient-to-r hover:from-[#703eff] hover:to-[#0254b9] hover:text-white hover:border-transparent font-medium transition-all"
                         >
                             Get In Touch
                         </Link>
                         <Link
                             href="#meeting"
                             onClick={onClose}
-                            className="block w-full text-center px-5 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-all shadow-lg shadow-blue-600/30"
+                            className="block w-full text-center px-5 py-3 bg-gradient-to-r from-[#703eff] to-[#0254b9] text-white rounded-full hover:from-[#5f2de0] hover:to-[#0148a3] font-medium transition-all shadow-lg shadow-[#0254b9]/30"
                         >
                             Book a Meeting
                         </Link>
