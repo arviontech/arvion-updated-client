@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getProjectBySlug, Project } from '@/services/projects/ProjectService';
 import { ExternalLink, ArrowLeft, Calendar, AlertCircle, RefreshCw } from 'lucide-react';
+import Container from '@/components/shared/Container';
 
 interface ProjectDetailsContentProps {
     slug: string;
@@ -110,7 +111,7 @@ export default function ProjectDetailsContent({ slug }: ProjectDetailsContentPro
 
     return (
         <div className="min-h-screen bg-white pt-24 pb-16">
-            <div className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
+            <Container>
                 {/* Back Button */}
                 <button
                     onClick={() => router.back()}
@@ -226,7 +227,7 @@ export default function ProjectDetailsContent({ slug }: ProjectDetailsContentPro
                         dangerouslySetInnerHTML={{ __html: project.description }}
                     />
                 </div>
-            </div>
+            </Container>
         </div>
     );
 }

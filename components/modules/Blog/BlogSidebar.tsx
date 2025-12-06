@@ -119,4 +119,3 @@ const BlogSidebar = () => {
 };
 
 export default BlogSidebar;
-logSidebar;

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Facebook, Twitter, Linkedin, Instagram, Youtube, Mail, Phone, MapPin, ArrowRight, Send } from 'lucide-react';
 import { useState } from 'react';
+import Container from './Container';
 
 const Footer = () => {
     const [email, setEmail] = useState('');
@@ -69,7 +70,7 @@ const Footer = () => {
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-size-[40px_40px]" />
             </div>
 
-            <div className="relative max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
+            <Container className="relative">
                 {/* Newsletter Section */}
                 <div className="py-12 border-b border-gray-700/50">
                     <div className="grid md:grid-cols-2 gap-8 items-center">
@@ -304,7 +305,7 @@ const Footer = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </Container>
         </footer>
     );
 };

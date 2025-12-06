@@ -5,6 +5,7 @@ import { getAllProjects, Project } from '@/services/projects/ProjectService';
 import ProjectCard from './ProjectCard';
 import ProjectCardLoadingSkeleton from './ProjectCardLoadingSkeleton';
 import { AlertCircle, RefreshCw } from 'lucide-react';
+import Container from '@/components/shared/Container';
 
 export default function ProjectsSection() {
     const [projects, setProjects] = useState<Project[]>([]);
@@ -30,7 +31,7 @@ export default function ProjectsSection() {
 
     return (
         <section id="projects" className="py-16 lg:py-24 bg-gray-50">
-            <div className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
+            <Container>
                 {/* Section Header */}
                 <div className="text-center mb-16">
                     <span className="text-blue-600 font-semibold tracking-wider uppercase text-sm">
@@ -101,7 +102,7 @@ export default function ProjectsSection() {
                         </button>
                     </div>
                 )}
-            </div>
+            </Container>
         </section>
     );
 }

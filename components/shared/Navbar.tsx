@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Menu, X, Phone, Calendar } from 'lucide-react';
 import MobileMenu from './MobileMenu';
 import logo from '../../public/assets/arvion-logo.png';
+import Container from './Container';
 
 
 const Navbar = () => {
@@ -89,7 +90,7 @@ const Navbar = () => {
     return (
         <>
             <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-100">
-                <div className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
+                <Container>
                     <div className="flex items-center justify-between h-20">
 
                         {/* Mobile: Hamburger Menu (Left) */}
@@ -222,7 +223,7 @@ const Navbar = () => {
                             </Link>
                         </div>
                     </div>
-                </div>
+                </Container>
             </nav>
 
             {/* Mobile Menu */}

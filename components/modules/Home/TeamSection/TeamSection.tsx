@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Users } from 'lucide-react';
 import { getAllTeams, TeamMember } from '@/services/team/TeamService';
+import Container from '@/components/shared/Container';
 
 const TeamSection = () => {
     const [teams, setTeams] = useState<TeamMember[]>([]);
@@ -35,7 +36,7 @@ const TeamSection = () => {
 
     return (
         <section className="py-16 sm:py-20 lg:py-28 overflow-hidden">
-            <div className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16">
+            <Container className="mb-12 sm:mb-16">
                 <div className="flex flex-col md:flex-row justify-between gap-8">
                     <div className="max-w-xl">
                         <span className="text-blue-600 font-semibold tracking-wider uppercase text-sm">
@@ -49,7 +50,7 @@ const TeamSection = () => {
                         At Arvion Tech, we see you as a partner, where your goals become our mission. Your success is the inspiration of our works, and your growth is the real measure of our achievements.
                     </p>
                 </div>
-            </div>
+            </Container>
 
             {/* Marquee Container */}
             <div className="relative w-full overflow-hidden">

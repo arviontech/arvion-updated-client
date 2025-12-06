@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { Code2, Users, ArrowRight } from 'lucide-react';
+import Container from '@/components/shared/Container';
 
 const CTASection = () => {
     const services = [
@@ -41,7 +42,7 @@ const CTASection = () => {
             </div>
 
             {/* Content */}
-            <div className="relative max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
+            <Container className="relative">
                 {/* Header Section */}
                 <div className="text-center mb-12 sm:mb-16 lg:mb-20">
                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 mb-6">
@@ -115,7 +116,7 @@ const CTASection = () => {
                         <ArrowRight className="w-5 h-5" />
                     </a>
                 </div>
-            </div>
+            </Container>
         </section>
     );
 };

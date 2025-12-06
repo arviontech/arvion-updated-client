@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import Container from '@/components/shared/Container';
 
 const ServicesSection = () => {
     const services = [
@@ -61,7 +62,7 @@ const ServicesSection = () => {
                 <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-400/5 rounded-full blur-3xl" />
             </div>
 
-            <div className="relative max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
+            <Container className="relative">
                 {/* Section Header */}
                 <div className="text-center mb-12 lg:mb-16">
                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 rounded-full mb-4">
@@ -155,7 +156,7 @@ const ServicesSection = () => {
                         Get in Touch
                     </button>
                 </div>
-            </div>
+            </Container>
         </section>
     );
 };
