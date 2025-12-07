@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { Project, extractPlainText } from '@/services/projects/ProjectService';
@@ -5,14 +7,46 @@ import { ExternalLink } from 'lucide-react';
 
 interface ProjectCardProps {
     project: Project;
+    index?: number;
 }
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
     // Extract plain text from HTML description for preview
     const descriptionPreview = extractPlainText(project.description, 150);
 
     return (
-        <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-blue-200">
+        <div
+            className="group rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1"
+            style={{
+                backdropFilter: 'blur(15px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(15px) saturate(180%)',
+                border: '1px solid rgba(255, 255, 255, 0.25)',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.6), inset 0 -1px 1px rgba(255, 255, 255, 0.3)',
+            }}
+            onMouseEnter={(e) => {
+                e.currentTarget.style.border = '1px solid rgba(6, 182, 212, 0.25)';
+                e.currentTarget.style.boxShadow = '0 10px 40px rgba(6, 182, 212, 0.12), 0 6px 20px rgba(139, 92, 246, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.65), inset 0 -1px 1px rgba(255, 255, 255, 0.35)';
+            }}
+            onMouseLeave={(e) => {
+                e.currentTarget.style.border = '1px solid rgba(255, 255, 255, 0.25)';
+                e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.6), inset 0 -1px 1px rgba(255, 255, 255, 0.3)';
+            }}
+        >
+            {/* Gradient background layer */}
+            <div className="absolute inset-0 -z-10"
+                style={{
+                    background: index % 2 === 0
+                        ? 'linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%)'
+                        : 'linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(6, 182, 212, 0.08) 100%)',
+                }}
+            />
+
+            {/* White transparent layer */}
+            <div className="absolute inset-0 -z-9"
+                style={{
+                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.15) 100%)',
+                }}
+            />
             {/* Project Image */}
             <div className="relative h-64 overflow-hidden bg-gray-100">
                 {project.images && project.images.length > 0 ? (
@@ -33,14 +67,20 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             </div>
 
             {/* Project Content */}
-            <div className="p-6">
+            <div className="p-6 relative z-10">
                 {/* Title */}
-                <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-1">
+                <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-cyan-600 transition-colors line-clamp-1"
+                    style={{
+                        textShadow: '0 2px 4px rgba(255, 255, 255, 0.9), 0 1px 2px rgba(255, 255, 255, 0.8)'
+                    }}>
                     {project.title}
                 </h3>
 
                 {/* Description Preview */}
-                <p className="text-gray-600 mb-6 line-clamp-3 leading-relaxed">
+                <p className="text-gray-800 mb-6 line-clamp-3 leading-relaxed font-semibold"
+                    style={{
+                        textShadow: '0 1px 3px rgba(255, 255, 255, 0.8), 0 1px 2px rgba(255, 255, 255, 0.6)'
+                    }}>
                     {descriptionPreview}
                 </p>
 
@@ -52,7 +92,14 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                             className="group/tech relative"
                             title={tech.name}
                         >
-                            <div className="w-10 h-10 bg-gray-50 rounded-lg flex items-center justify-center hover:bg-blue-50 transition-colors border border-gray-200">
+                            <div className="w-10 h-10 rounded-lg flex items-center justify-center transition-all"
+                                style={{
+                                    background: 'rgba(255, 255, 255, 0.3)',
+                                    backdropFilter: 'blur(5px)',
+                                    WebkitBackdropFilter: 'blur(5px)',
+                                    border: '1px solid rgba(255, 255, 255, 0.4)',
+                                    boxShadow: '0 2px 8px rgba(6, 182, 212, 0.1)',
+                                }}>
                                 <Image
                                     src={tech.icon}
                                     alt={tech.name}
@@ -68,7 +115,14 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                         </div>
                     ))}
                     {project.technologies.length > 6 && (
-                        <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600 font-semibold text-sm border border-blue-200">
+                        <div className="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-sm"
+                            style={{
+                                background: 'rgba(6, 182, 212, 0.15)',
+                                backdropFilter: 'blur(5px)',
+                                WebkitBackdropFilter: 'blur(5px)',
+                                border: '1px solid rgba(6, 182, 212, 0.3)',
+                                color: 'rgb(8, 145, 178)',
+                            }}>
                             +{project.technologies.length - 6}
                         </div>
                     )}
@@ -78,18 +132,50 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                 <div className="flex gap-3">
                     <Link
                         href={`/project/${project.slug}`}
-                        className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-[#703eff] to-[#0254b9] hover:from-[#5f2de0] hover:to-[#0148a3] text-white font-semibold rounded-full transition-all shadow-lg hover:shadow-[#0254b9]/30 hover:-translate-y-1"
+                        className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold transition-all relative overflow-hidden group/btn"
+                        style={{
+                            backdropFilter: 'blur(15px)',
+                            WebkitBackdropFilter: 'blur(15px)',
+                            border: '1px solid rgba(255, 255, 255, 0.25)',
+                            boxShadow: '0 4px 16px rgba(0, 0, 0, 0.1)',
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = 'translateY(-2px)';
+                            e.currentTarget.style.boxShadow = '0 6px 20px rgba(6, 182, 212, 0.2)';
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = 'translateY(0)';
+                            e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.1)';
+                        }}
                     >
-                        View Details
+                        <span className="absolute inset-0 bg-linear-to-r from-cyan-500/20 via-violet-500/20 to-cyan-500/20 bg-[length:200%_100%] animate-gradient" />
+                        <span className="relative z-10 bg-linear-to-r from-cyan-600 to-violet-600 bg-clip-text text-transparent font-bold">
+                            View Details
+                        </span>
                     </Link>
                     <Link
                         href={project.live}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-4 py-3 bg-white text-[#703eff] font-semibold rounded-full border-2 border-[#703eff] hover:bg-gradient-to-r hover:from-[#703eff] hover:to-[#0254b9] hover:text-white hover:border-transparent transition-all"
+                        className="px-4 py-3 rounded-full font-semibold transition-all"
                         title="View Live Project"
+                        style={{
+                            background: 'rgba(255, 255, 255, 0.3)',
+                            backdropFilter: 'blur(10px)',
+                            WebkitBackdropFilter: 'blur(10px)',
+                            border: '1px solid rgba(6, 182, 212, 0.3)',
+                            boxShadow: '0 4px 16px rgba(6, 182, 212, 0.1)',
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.background = 'rgba(6, 182, 212, 0.2)';
+                            e.currentTarget.style.transform = 'translateY(-2px)';
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.3)';
+                            e.currentTarget.style.transform = 'translateY(0)';
+                        }}
                     >
-                        <ExternalLink className="w-5 h-5" />
+                        <ExternalLink className="w-5 h-5 text-cyan-600" />
                     </Link>
                 </div>
             </div>

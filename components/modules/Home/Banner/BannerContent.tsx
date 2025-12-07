@@ -1,5 +1,8 @@
 import Link from 'next/link';
 import { Phone, Calendar, ArrowRight } from 'lucide-react';
+import GlassmorphismButton from '@/components/shared/GlassmorphismButton';
+import NavStyleButton from '@/components/shared/NavStyleButton';
+import GlassmorphismContainer from '@/components/shared/GlassmorphismContainer';
 
 const BannerContent = () => {
     return (
@@ -31,24 +34,31 @@ const BannerContent = () => {
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Link
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 pt-4">
+                {/* Get In Touch - Glassmorphism Button */}
+                <GlassmorphismButton
                     href="#contact"
-                    className="group inline-flex items-center justify-center gap-3 px-8 py-3 bg-gradient-to-r from-[#703eff] to-[#0254b9] text-white rounded-full hover:from-[#5f2de0] hover:to-[#0148a3] font-semibold text-lg transition-all shadow-xl shadow-[#0254b9]/30 hover:shadow-2xl hover:shadow-[#0254b9]/40 hover:scale-105"
+                    size="md"
+                    leftIcon={<Phone className="w-4 h-4 sm:w-5 sm:h-5" />}
+                    rightIcon={<ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />}
+                    className="hover:scale-105 w-auto"
                 >
-                    <Phone className="w-5 h-5" />
                     Get In Touch
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </Link>
+                </GlassmorphismButton>
 
-                <Link
-                    href="#meeting"
-                    className="group inline-flex items-center justify-center gap-3 px-8 py-3 bg-white text-[#703eff] border-2 border-[#703eff] rounded-full hover:bg-gradient-to-r hover:from-[#703eff] hover:to-[#0254b9] hover:text-white hover:border-transparent font-semibold text-lg transition-all hover:scale-105"
-                >
-                    <Calendar className="w-5 h-5" />
-                    Book a Meeting
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </Link>
+                {/* Book a Meeting - Navbar Style Button in Glassmorphism Container */}
+                <GlassmorphismContainer className="w-auto">
+                    <NavStyleButton
+                        href="#meeting"
+                        size="md"
+                        leftIcon={<Calendar className="w-4 h-4 sm:w-5 sm:h-5" />}
+                        rightIcon={<ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />}
+                        noHoverBg={true}
+                        className="w-auto"
+                    >
+                        Book a Meeting
+                    </NavStyleButton>
+                </GlassmorphismContainer>
             </div>
 
             {/* Trust indicators */}

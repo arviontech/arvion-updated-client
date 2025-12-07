@@ -1,3 +1,6 @@
+/* Satoshi Font - From Fontshare */
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400,300&display=swap');
+
 @import "tailwindcss";
 
 :root {
@@ -17,15 +20,15 @@
   --arvion-blue-900: #1e3a8a;
 
   /* Font Variables */
-  --font-heading: var(--font-outfit);
-  --font-body: var(--font-poppins);
+  --font-heading: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-poppins);
-  --font-heading: var(--font-outfit);
+  --font-sans: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-heading: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -42,7 +45,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-poppins), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 h1,
@@ -51,7 +54,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-outfit), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-weight: 700;
 }
 
@@ -160,6 +163,28 @@ a {
   }
 }
 
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
@@ -188,6 +213,14 @@ a {
 
 .animate-fade-in {
   animation: fade-in 1s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.4s ease-out;
+}
+
+.animate-fade-out {
+  animation: fadeOut 0.3s ease-in forwards;
 }
 
 .animation-delay-300 {
@@ -274,19 +307,73 @@ a {
   animation-delay: 0.5s;
 }
 
-/* 3D Cube Rotation */
+/* 3D Cube Rotation - Horizontal only */
 @keyframes rotate3d {
   0% {
-    transform: rotateX(0deg) rotateY(0deg);
+    transform: rotateY(0deg) translate3d(0, 0, 0);
   }
 
   100% {
-    transform: rotateX(360deg) rotateY(360deg);
+    transform: rotateY(360deg) translate3d(0, 0, 0);
   }
 }
 
 .animate-rotate-3d {
-  animation: rotate3d 8s linear infinite;
+  animation: rotate3d 12s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Ring Zoom In Animation */
+@keyframes ring-zoom-in {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-ring-zoom {
+  animation: ring-zoom-in 0.6s ease-out forwards;
+}
+
+.animate-ring-zoom-delay-1 {
+  animation: ring-zoom-in 0.6s ease-out 0.15s forwards;
+  opacity: 0;
+}
+
+.animate-ring-zoom-delay-2 {
+  animation: ring-zoom-in 0.6s ease-out 0.3s forwards;
+  opacity: 0;
+}
+
+/* Cube Pop Animation */
+@keyframes cube-pop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  60% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-cube-pop {
+  animation: cube-pop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards;
+  opacity: 0;
 }
 
 /* Text Glow Pulse Animation */
@@ -302,6 +389,52 @@ a {
     opacity: 0.85;
     filter: brightness(1.2);
   }
+}
+
+/* Animated Gradient Background */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  animation: gradient 3s ease infinite;
+}
+
+/* Animated Shadow Effect - Circular Rotation */
+@keyframes shadow-rotate {
+  0% {
+    box-shadow: inset 6px 0px 12px rgba(6, 182, 212, 0.2), inset -6px 0px 12px rgba(139, 92, 246, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  25% {
+    box-shadow: inset 0px 6px 12px rgba(6, 182, 212, 0.2), inset 0px -6px 12px rgba(139, 92, 246, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  50% {
+    box-shadow: inset -6px 0px 12px rgba(6, 182, 212, 0.2), inset 6px 0px 12px rgba(139, 92, 246, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  75% {
+    box-shadow: inset 0px -6px 12px rgba(6, 182, 212, 0.2), inset 0px 6px 12px rgba(139, 92, 246, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  100% {
+    box-shadow: inset 6px 0px 12px rgba(6, 182, 212, 0.2), inset -6px 0px 12px rgba(139, 92, 246, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+}
+
+.animate-shadow-pulse {
+  animation: shadow-rotate 6s linear infinite;
 }
 
 /* Primary Button - Gradient with rounded-full */

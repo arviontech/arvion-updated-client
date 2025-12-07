@@ -2,20 +2,29 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Facebook, Twitter, Linkedin, Instagram, Youtube, Mail, Phone, MapPin, ArrowRight, Send } from 'lucide-react';
+import { Facebook, Twitter, Linkedin, Instagram, Youtube, Mail, Phone, MapPin, ArrowRight, Send, CheckCircle } from 'lucide-react';
 import { useState } from 'react';
 import Container from './Container';
 
 const Footer = () => {
     const [email, setEmail] = useState('');
     const [isSubscribed, setIsSubscribed] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const handleSubscribe = (e: React.FormEvent) => {
+    const handleSubscribe = async (e: React.FormEvent) => {
         e.preventDefault();
         if (email) {
+            setIsSubmitting(true);
+
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            setIsSubmitting(false);
             setIsSubscribed(true);
             setEmail('');
-            setTimeout(() => setIsSubscribed(false), 3000);
+
+            // Auto-hide toast after 5 seconds
+            setTimeout(() => setIsSubscribed(false), 5000);
         }
     };
 
@@ -62,23 +71,94 @@ const Footer = () => {
     ];
 
     return (
-        <footer className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white overflow-hidden">
-            {/* Background Decorative Elements */}
+        <>
+            {/* Toast Notification */}
+            {isSubscribed && (
+                <div
+                    className="fixed top-24 right-6 z-[100] p-5 rounded-2xl flex items-start gap-4 shadow-2xl animate-slide-in-right max-w-md"
+                    style={{
+                        backdropFilter: 'blur(20px) saturate(180%)',
+                        WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+                        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.95) 0%, rgba(5, 150, 105, 0.95) 100%)',
+                        border: '1px solid rgba(255, 255, 255, 0.3)',
+                        boxShadow: '0 20px 60px rgba(16, 185, 129, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.5)',
+                        animation: 'slideInRight 0.4s ease-out, fadeOut 0.3s ease-in 4.7s forwards'
+                    }}
+                >
+                    <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0"
+                        style={{
+                            background: 'rgba(255, 255, 255, 0.25)',
+                            backdropFilter: 'blur(10px)',
+                        }}
+                    >
+                        <CheckCircle className="w-7 h-7 text-white" />
+                    </div>
+                    <div className="flex-1">
+                        <h3 className="font-bold text-white text-lg mb-1">Successfully Subscribed!</h3>
+                        <p className="text-white/90 text-sm font-medium leading-relaxed">
+                            Thank you for subscribing to our newsletter. You&apos;ll receive tech insights and updates in your inbox.
+                        </p>
+                    </div>
+                    <button
+                        onClick={() => setIsSubscribed(false)}
+                        className="text-white/80 hover:text-white transition-colors flex-shrink-0"
+                        aria-label="Close notification"
+                    >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            )}
+
+            <footer className="relative bg-gray-50 overflow-hidden">
+                {/* Background decorative elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl" />
-                <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-size-[40px_40px]" />
+                {/* Subtle Gradient Background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/3 via-white to-violet-500/3" />
+
+                {/* Decorative frosted glass shapes */}
+                <div className="absolute top-0 left-0 w-96 h-96 rounded-full"
+                    style={{
+                        background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%)',
+                        backdropFilter: 'blur(40px)',
+                        WebkitBackdropFilter: 'blur(40px)',
+                        border: '1px solid rgba(6, 182, 212, 0.15)',
+                        boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.3)',
+                        filter: 'blur(60px)'
+                    }}
+                />
+                <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full"
+                    style={{
+                        background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(6, 182, 212, 0.08) 100%)',
+                        backdropFilter: 'blur(40px)',
+                        WebkitBackdropFilter: 'blur(40px)',
+                        border: '1px solid rgba(139, 92, 246, 0.15)',
+                        boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.3)',
+                        filter: 'blur(60px)'
+                    }}
+                />
             </div>
 
             <Container className="relative">
                 {/* Newsletter Section */}
-                <div className="py-12 border-b border-gray-700/50">
+                <div className="py-12 border-b"
+                    style={{ borderColor: 'rgba(6, 182, 212, 0.1)' }}>
                     <div className="grid md:grid-cols-2 gap-8 items-center">
                         <div>
-                            <h3 className="text-2xl md:text-3xl font-bold mb-2 bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-                                Stay Updated
+                            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full border border-gray-200 mb-4">
+                                <div className="w-2 h-2 bg-gradient-to-r from-cyan-500 to-violet-500 rounded-full animate-pulse" />
+                                <span className="text-xs sm:text-sm font-semibold text-gray-700 uppercase tracking-wider">
+                                    Newsletter
+                                </span>
+                            </div>
+                            <h3 className="text-2xl md:text-3xl font-bold mb-2">
+                                <span className="bg-gradient-to-r from-cyan-500 to-violet-600 bg-clip-text text-transparent">
+                                    Stay Updated
+                                </span>
                             </h3>
-                            <p className="text-gray-400 text-sm md:text-base">
+                            <p className="text-gray-600 text-sm md:text-base font-semibold"
+                                style={{ textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)' }}>
                                 Subscribe to our newsletter for the latest tech insights, updates, and exclusive offers.
                             </p>
                         </div>
@@ -91,23 +171,47 @@ const Footer = () => {
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                         placeholder="Enter your email"
-                                        className="w-full pl-12 pr-4 py-3.5 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-white placeholder:text-gray-500"
+                                        className="w-full pl-12 pr-4 py-3.5 border border-gray-200 rounded-lg focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all text-gray-900 placeholder:text-gray-400 font-semibold"
+                                        style={{
+                                            backdropFilter: 'blur(10px) saturate(180%)',
+                                            WebkitBackdropFilter: 'blur(10px) saturate(180%)',
+                                            background: 'rgba(255, 255, 255, 0.5)',
+                                        }}
                                         required
                                     />
                                 </div>
                                 <button
                                     type="submit"
-                                    className="px-6 py-3.5 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-lg font-semibold transition-all duration-300 shadow-lg shadow-blue-600/30 hover:shadow-blue-600/50 flex items-center gap-2 group"
+                                    disabled={isSubmitting}
+                                    className="px-6 py-3.5 rounded-lg font-semibold transition-all duration-300 flex items-center gap-2 group text-white disabled:opacity-70 disabled:cursor-not-allowed"
+                                    style={{
+                                        background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.9) 0%, rgba(139, 92, 246, 0.9) 100%)',
+                                        boxShadow: '0 4px 16px rgba(6, 182, 212, 0.3)',
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        if (!isSubmitting) {
+                                            e.currentTarget.style.boxShadow = '0 6px 20px rgba(6, 182, 212, 0.4)';
+                                            e.currentTarget.style.transform = 'translateY(-2px)';
+                                        }
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.boxShadow = '0 4px 16px rgba(6, 182, 212, 0.3)';
+                                        e.currentTarget.style.transform = 'translateY(0)';
+                                    }}
                                 >
-                                    <span className="hidden sm:inline">Subscribe</span>
-                                    <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                    {isSubmitting ? (
+                                        <>
+                                            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                            <span className="hidden sm:inline">Subscribing...</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <span className="hidden sm:inline">Subscribe</span>
+                                            <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                        </>
+                                    )}
                                 </button>
                             </div>
-                            {isSubscribed && (
-                                <p className="absolute -bottom-8 left-0 text-sm text-green-400 animate-fade-in">
-                                    ✓ Successfully subscribed!
-                                </p>
-                            )}
                         </form>
                     </div>
                 </div>
@@ -122,33 +226,59 @@ const Footer = () => {
                                 alt="Arvion Tech"
                                 width={150}
                                 height={50}
-                                className="h-12 w-auto object-contain brightness-0 invert"
+                                className="h-12 w-auto object-contain"
                             />
                         </Link>
-                        <p className="text-gray-400 text-sm leading-relaxed mb-6">
+                        <p className="text-gray-600 text-sm leading-relaxed mb-6 font-semibold"
+                            style={{ textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)' }}>
                             Empowering businesses with cutting-edge technology solutions.
                             We transform ideas into exceptional digital experiences.
                         </p>
 
                         {/* Contact Info */}
                         <div className="space-y-3">
-                            <a href="mailto:info@arviontech.com" className="flex items-center gap-3 text-gray-400 hover:text-blue-400 transition-colors group">
-                                <div className="w-9 h-9 bg-gray-800/50 rounded-lg flex items-center justify-center group-hover:bg-blue-600/20 transition-colors">
-                                    <Mail className="w-4 h-4" />
+                            <a href="mailto:info@arviontech.com" className="flex items-center gap-3 text-gray-700 hover:text-cyan-600 transition-colors group">
+                                <div className="w-9 h-9 rounded-lg flex items-center justify-center transition-colors"
+                                    style={{
+                                        background: 'rgba(255, 255, 255, 0.3)',
+                                        backdropFilter: 'blur(5px)',
+                                        WebkitBackdropFilter: 'blur(5px)',
+                                        border: '1px solid rgba(6, 182, 212, 0.2)',
+                                    }}>
+                                    <Mail className="w-4 h-4 text-cyan-600" />
                                 </div>
-                                <span className="text-sm">info@arviontech.com</span>
+                                <span className="text-sm font-semibold"
+                                    style={{ textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)' }}>
+                                    info@arviontech.com
+                                </span>
                             </a>
-                            <a href="tel:+1234567890" className="flex items-center gap-3 text-gray-400 hover:text-blue-400 transition-colors group">
-                                <div className="w-9 h-9 bg-gray-800/50 rounded-lg flex items-center justify-center group-hover:bg-blue-600/20 transition-colors">
-                                    <Phone className="w-4 h-4" />
+                            <a href="tel:+1234567890" className="flex items-center gap-3 text-gray-700 hover:text-cyan-600 transition-colors group">
+                                <div className="w-9 h-9 rounded-lg flex items-center justify-center transition-colors"
+                                    style={{
+                                        background: 'rgba(255, 255, 255, 0.3)',
+                                        backdropFilter: 'blur(5px)',
+                                        WebkitBackdropFilter: 'blur(5px)',
+                                        border: '1px solid rgba(139, 92, 246, 0.2)',
+                                    }}>
+                                    <Phone className="w-4 h-4 text-violet-600" />
                                 </div>
-                                <span className="text-sm">+1 (234) 567-890</span>
+                                <span className="text-sm font-semibold"
+                                    style={{ textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)' }}>
+                                    +1 (234) 567-890
+                                </span>
                             </a>
-                            <div className="flex items-start gap-3 text-gray-400">
-                                <div className="w-9 h-9 bg-gray-800/50 rounded-lg flex items-center justify-center">
-                                    <MapPin className="w-4 h-4" />
+                            <div className="flex items-start gap-3 text-gray-700">
+                                <div className="w-9 h-9 rounded-lg flex items-center justify-center"
+                                    style={{
+                                        background: 'rgba(255, 255, 255, 0.3)',
+                                        backdropFilter: 'blur(5px)',
+                                        WebkitBackdropFilter: 'blur(5px)',
+                                        border: '1px solid rgba(6, 182, 212, 0.2)',
+                                    }}>
+                                    <MapPin className="w-4 h-4 text-cyan-600" />
                                 </div>
-                                <span className="text-sm leading-relaxed">
+                                <span className="text-sm leading-relaxed font-semibold"
+                                    style={{ textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)' }}>
                                     123 Tech Street, Silicon Valley<br />CA 94025, United States
                                 </span>
                             </div>
@@ -157,15 +287,19 @@ const Footer = () => {
 
                     {/* Services */}
                     <div>
-                        <h4 className="font-bold text-lg mb-6 text-white">Services</h4>
+                        <h4 className="font-bold text-lg mb-6 text-gray-900"
+                            style={{ textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)' }}>
+                            Services
+                        </h4>
                         <ul className="space-y-3">
                             {services.map((item) => (
                                 <li key={item.label}>
                                     <Link
                                         href={item.href}
-                                        className="text-gray-400 hover:text-blue-400 transition-colors text-sm flex items-center gap-2 group"
+                                        className="text-gray-600 hover:text-cyan-600 transition-colors text-sm flex items-center gap-2 group font-semibold"
+                                        style={{ textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)' }}
                                     >
-                                        <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 -ml-5 group-hover:ml-0 transition-all" />
+                                        <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 -ml-5 group-hover:ml-0 transition-all text-cyan-600" />
                                         <span>{item.label}</span>
                                     </Link>
                                 </li>
@@ -175,15 +309,19 @@ const Footer = () => {
 
                     {/* Company */}
                     <div>
-                        <h4 className="font-bold text-lg mb-6 text-white">Company</h4>
+                        <h4 className="font-bold text-lg mb-6 text-gray-900"
+                            style={{ textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)' }}>
+                            Company
+                        </h4>
                         <ul className="space-y-3">
                             {company.map((item) => (
                                 <li key={item.label}>
                                     <Link
                                         href={item.href}
-                                        className="text-gray-400 hover:text-blue-400 transition-colors text-sm flex items-center gap-2 group"
+                                        className="text-gray-600 hover:text-cyan-600 transition-colors text-sm flex items-center gap-2 group font-semibold"
+                                        style={{ textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)' }}
                                     >
-                                        <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 -ml-5 group-hover:ml-0 transition-all" />
+                                        <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 -ml-5 group-hover:ml-0 transition-all text-cyan-600" />
                                         <span>{item.label}</span>
                                     </Link>
                                 </li>
@@ -193,15 +331,19 @@ const Footer = () => {
 
                     {/* Resources */}
                     <div>
-                        <h4 className="font-bold text-lg mb-6 text-white">Resources</h4>
+                        <h4 className="font-bold text-lg mb-6 text-gray-900"
+                            style={{ textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)' }}>
+                            Resources
+                        </h4>
                         <ul className="space-y-3">
                             {resources.map((item) => (
                                 <li key={item.label}>
                                     <Link
                                         href={item.href}
-                                        className="text-gray-400 hover:text-blue-400 transition-colors text-sm flex items-center gap-2 group"
+                                        className="text-gray-600 hover:text-cyan-600 transition-colors text-sm flex items-center gap-2 group font-semibold"
+                                        style={{ textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)' }}
                                     >
-                                        <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 -ml-5 group-hover:ml-0 transition-all" />
+                                        <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 -ml-5 group-hover:ml-0 transition-all text-cyan-600" />
                                         <span>{item.label}</span>
                                     </Link>
                                 </li>
@@ -211,15 +353,19 @@ const Footer = () => {
 
                     {/* Legal */}
                     <div>
-                        <h4 className="font-bold text-lg mb-6 text-white">Legal</h4>
+                        <h4 className="font-bold text-lg mb-6 text-gray-900"
+                            style={{ textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)' }}>
+                            Legal
+                        </h4>
                         <ul className="space-y-3">
                             {legal.map((item) => (
                                 <li key={item.label}>
                                     <Link
                                         href={item.href}
-                                        className="text-gray-400 hover:text-blue-400 transition-colors text-sm flex items-center gap-2 group"
+                                        className="text-gray-600 hover:text-cyan-600 transition-colors text-sm flex items-center gap-2 group font-semibold"
+                                        style={{ textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)' }}
                                     >
-                                        <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 -ml-5 group-hover:ml-0 transition-all" />
+                                        <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 -ml-5 group-hover:ml-0 transition-all text-cyan-600" />
                                         <span>{item.label}</span>
                                     </Link>
                                 </li>
@@ -229,11 +375,13 @@ const Footer = () => {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="py-8 border-t border-gray-700/50">
+                <div className="py-8 border-t"
+                    style={{ borderColor: 'rgba(6, 182, 212, 0.1)' }}>
                     <div className="flex flex-col md:flex-row justify-between items-center gap-6">
                         {/* Copyright */}
-                        <p className="text-gray-400 text-sm text-center md:text-left">
-                            © {new Date().getFullYear()} <span className="text-blue-400 font-semibold">Arvion Tech</span>. All rights reserved.
+                        <p className="text-gray-600 text-sm text-center md:text-left font-semibold"
+                            style={{ textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)' }}>
+                            © {new Date().getFullYear()} <span className="bg-gradient-to-r from-cyan-500 to-violet-600 bg-clip-text text-transparent font-bold">Arvion Tech</span>. All rights reserved.
                         </p>
 
                         {/* Social Links */}
@@ -247,9 +395,23 @@ const Footer = () => {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         aria-label={social.label}
-                                        className={`w-10 h-10 bg-gray-800/50 hover:bg-gray-700 rounded-lg flex items-center justify-center transition-all duration-300 ${social.color} group`}
+                                        className="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 group"
+                                        style={{
+                                            background: 'rgba(255, 255, 255, 0.3)',
+                                            backdropFilter: 'blur(5px)',
+                                            WebkitBackdropFilter: 'blur(5px)',
+                                            border: '1px solid rgba(6, 182, 212, 0.2)',
+                                        }}
+                                        onMouseEnter={(e) => {
+                                            e.currentTarget.style.border = '1px solid rgba(6, 182, 212, 0.4)';
+                                            e.currentTarget.style.transform = 'translateY(-2px)';
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.currentTarget.style.border = '1px solid rgba(6, 182, 212, 0.2)';
+                                            e.currentTarget.style.transform = 'translateY(0)';
+                                        }}
                                     >
-                                        <Icon className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" />
+                                        <Icon className="w-5 h-5 text-cyan-600 group-hover:text-violet-600 transition-colors" />
                                     </a>
                                 );
                             })}
@@ -258,46 +420,78 @@ const Footer = () => {
                         {/* Back to Top */}
                         <button
                             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                            className="flex items-center gap-2 text-sm text-gray-400 hover:text-blue-400 transition-colors group"
+                            className="flex items-center gap-2 text-sm text-gray-700 hover:text-cyan-600 transition-colors group font-semibold"
+                            style={{ textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)' }}
                         >
                             <span>Back to top</span>
-                            <div className="w-8 h-8 bg-gray-800/50 hover:bg-blue-600 rounded-lg flex items-center justify-center transition-all">
-                                <ArrowRight className="w-4 h-4 -rotate-90 group-hover:-translate-y-1 transition-transform" />
+                            <div className="w-8 h-8 rounded-lg flex items-center justify-center transition-all"
+                                style={{
+                                    background: 'rgba(255, 255, 255, 0.3)',
+                                    backdropFilter: 'blur(5px)',
+                                    WebkitBackdropFilter: 'blur(5px)',
+                                    border: '1px solid rgba(6, 182, 212, 0.2)',
+                                }}>
+                                <ArrowRight className="w-4 h-4 -rotate-90 group-hover:-translate-y-1 transition-transform text-cyan-600" />
                             </div>
                         </button>
                     </div>
                 </div>
 
                 {/* Trust Badges / Certifications (Optional) */}
-                <div className="pb-8 pt-4 border-t border-gray-700/30">
-                    <div className="flex flex-wrap justify-center items-center gap-8 opacity-50">
-                        <div className="text-xs text-gray-500 flex items-center gap-2">
-                            <div className="w-6 h-6 bg-gray-700 rounded-full flex items-center justify-center">
-                                <svg className="w-3 h-3 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                <div className="pb-8 pt-4 border-t"
+                    style={{ borderColor: 'rgba(6, 182, 212, 0.05)' }}>
+                    <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
+                        <div className="text-xs text-gray-600 flex items-center gap-2 font-semibold">
+                            <div className="w-6 h-6 rounded-full flex items-center justify-center"
+                                style={{
+                                    background: 'rgba(255, 255, 255, 0.5)',
+                                    backdropFilter: 'blur(5px)',
+                                    WebkitBackdropFilter: 'blur(5px)',
+                                    border: '1px solid rgba(6, 182, 212, 0.2)',
+                                }}>
+                                <svg className="w-3 h-3 text-cyan-600" fill="currentColor" viewBox="0 0 20 20">
                                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                                 </svg>
                             </div>
                             <span>ISO 27001 Certified</span>
                         </div>
-                        <div className="text-xs text-gray-500 flex items-center gap-2">
-                            <div className="w-6 h-6 bg-gray-700 rounded-full flex items-center justify-center">
-                                <svg className="w-3 h-3 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                        <div className="text-xs text-gray-600 flex items-center gap-2 font-semibold">
+                            <div className="w-6 h-6 rounded-full flex items-center justify-center"
+                                style={{
+                                    background: 'rgba(255, 255, 255, 0.5)',
+                                    backdropFilter: 'blur(5px)',
+                                    WebkitBackdropFilter: 'blur(5px)',
+                                    border: '1px solid rgba(139, 92, 246, 0.2)',
+                                }}>
+                                <svg className="w-3 h-3 text-violet-600" fill="currentColor" viewBox="0 0 20 20">
                                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                                 </svg>
                             </div>
                             <span>SOC 2 Type II</span>
                         </div>
-                        <div className="text-xs text-gray-500 flex items-center gap-2">
-                            <div className="w-6 h-6 bg-gray-700 rounded-full flex items-center justify-center">
-                                <svg className="w-3 h-3 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                        <div className="text-xs text-gray-600 flex items-center gap-2 font-semibold">
+                            <div className="w-6 h-6 rounded-full flex items-center justify-center"
+                                style={{
+                                    background: 'rgba(255, 255, 255, 0.5)',
+                                    backdropFilter: 'blur(5px)',
+                                    WebkitBackdropFilter: 'blur(5px)',
+                                    border: '1px solid rgba(6, 182, 212, 0.2)',
+                                }}>
+                                <svg className="w-3 h-3 text-cyan-600" fill="currentColor" viewBox="0 0 20 20">
                                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                                 </svg>
                             </div>
                             <span>GDPR Compliant</span>
                         </div>
-                        <div className="text-xs text-gray-500 flex items-center gap-2">
-                            <div className="w-6 h-6 bg-gray-700 rounded-full flex items-center justify-center">
-                                <svg className="w-3 h-3 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                        <div className="text-xs text-gray-600 flex items-center gap-2 font-semibold">
+                            <div className="w-6 h-6 rounded-full flex items-center justify-center"
+                                style={{
+                                    background: 'rgba(255, 255, 255, 0.5)',
+                                    backdropFilter: 'blur(5px)',
+                                    WebkitBackdropFilter: 'blur(5px)',
+                                    border: '1px solid rgba(139, 92, 246, 0.2)',
+                                }}>
+                                <svg className="w-3 h-3 text-violet-600" fill="currentColor" viewBox="0 0 20 20">
                                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                                 </svg>
                             </div>
@@ -307,6 +501,7 @@ const Footer = () => {
                 </div>
             </Container>
         </footer>
+        </>
     );
 };
 

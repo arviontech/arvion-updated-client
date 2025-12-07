@@ -1,17 +1,37 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 
 export default function HeroSection() {
     return (
-        <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 bg-white overflow-hidden">
+        <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 bg-gray-50 overflow-hidden">
             {/* Background decorative elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                {/* Subtle Grid Pattern */}
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-size-[24px_24px]" />
+                {/* Subtle Gradient Background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/3 via-white to-violet-500/3" />
 
-                {/* Gradient Orbs */}
-                <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-100/40 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
-                <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-cyan-100/40 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4" />
+                {/* Decorative frosted glass shapes */}
+                <div className="absolute top-0 right-0 w-96 h-96 rounded-full"
+                    style={{
+                        background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%)',
+                        backdropFilter: 'blur(40px)',
+                        WebkitBackdropFilter: 'blur(40px)',
+                        border: '1px solid rgba(6, 182, 212, 0.15)',
+                        boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.3)',
+                        filter: 'blur(60px)'
+                    }}>
+                </div>
+                <div className="absolute bottom-0 left-0 w-96 h-96 rounded-full"
+                    style={{
+                        background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(6, 182, 212, 0.08) 100%)',
+                        backdropFilter: 'blur(40px)',
+                        WebkitBackdropFilter: 'blur(40px)',
+                        border: '1px solid rgba(139, 92, 246, 0.15)',
+                        boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.3)',
+                        filter: 'blur(60px)'
+                    }}>
+                </div>
             </div>
 
             <div className="relative max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -28,7 +48,7 @@ export default function HeroSection() {
                                 SERVICES
                             </Link>
                             <span className="text-gray-300">/</span>
-                            <span className="text-blue-600 bg-blue-50 px-3 py-1 rounded-full text-xs tracking-wide">APP DEVELOPMENT</span>
+                            <span className="bg-gradient-to-r from-cyan-600 to-violet-600 bg-clip-text text-transparent px-3 py-1 rounded-full text-xs tracking-wide font-bold">APP DEVELOPMENT</span>
                         </nav>
 
                         {/* Main Heading */}
@@ -50,13 +70,40 @@ export default function HeroSection() {
 
                         {/* CTA Buttons */}
                         <div className="flex flex-wrap gap-4 animate-fade-in-up animation-delay-300">
-                            <button className="px-8 py-4 bg-gradient-to-r from-[#703eff] to-[#0254b9] hover:from-[#5f2de0] hover:to-[#0148a3] text-white font-semibold rounded-full transition-all shadow-lg hover:shadow-[#0254b9]/30 hover:-translate-y-1 flex items-center gap-2">
+                            <button className="px-8 py-4 text-white font-semibold rounded-full transition-all flex items-center gap-2"
+                                style={{
+                                    background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.9) 0%, rgba(139, 92, 246, 0.9) 100%)',
+                                    boxShadow: '0 4px 16px rgba(6, 182, 212, 0.3)',
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.boxShadow = '0 6px 20px rgba(6, 182, 212, 0.4)';
+                                    e.currentTarget.style.transform = 'translateY(-2px)';
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.boxShadow = '0 4px 16px rgba(6, 182, 212, 0.3)';
+                                    e.currentTarget.style.transform = 'translateY(0)';
+                                }}>
                                 Start Your App
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                 </svg>
                             </button>
-                            <button className="px-8 py-4 bg-white text-gray-700 font-semibold rounded-xl border border-gray-200 hover:border-blue-200 hover:bg-blue-50/50 transition-all hover:-translate-y-1">
+                            <button className="px-8 py-4 text-gray-700 font-semibold rounded-full transition-all"
+                                style={{
+                                    background: 'rgba(255, 255, 255, 0.5)',
+                                    backdropFilter: 'blur(10px)',
+                                    WebkitBackdropFilter: 'blur(10px)',
+                                    border: '1px solid rgba(255, 255, 255, 0.6)',
+                                    boxShadow: '0 4px 16px rgba(0, 0, 0, 0.05), inset 0 1px 1px rgba(255, 255, 255, 0.8)',
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.border = '1px solid rgba(6, 182, 212, 0.3)';
+                                    e.currentTarget.style.transform = 'translateY(-2px)';
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.border = '1px solid rgba(255, 255, 255, 0.6)';
+                                    e.currentTarget.style.transform = 'translateY(0)';
+                                }}>
                                 View Case Studies
                             </button>
                         </div>
