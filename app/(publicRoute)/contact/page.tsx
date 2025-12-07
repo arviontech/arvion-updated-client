@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Clock, Send, MessageCircle, Headphones, Building2, ArrowRight, CheckCircle } from 'lucide-react';
+import { Mail, Phone, MapPin,  Send, MessageCircle, Headphones, Building2, ArrowRight, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
 
 const ContactPage = () => {

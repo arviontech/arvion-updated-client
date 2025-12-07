@@ -52,11 +52,12 @@ export default function LoginForm() {
         setIsLoading(true);
         try {
             const response = await login({ email, password });
+            console.log('Login successful:', response);
 
-            // Cookies are set automatically by the backend
-            // Redirect to dashboard on success
+            // Let proxy.ts handle the redirect based on accessToken cookie
             router.push('/admin');
         } catch (error) {
+            console.error('Login error:', error);
             setErrors({
                 email: '',
                 password: '',

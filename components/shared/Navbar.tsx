@@ -19,9 +19,9 @@ const Navbar = () => {
             const currentScrollY = window.scrollY;
 
             // Show navbar when scrolling up, hide when scrolling down
-            if (currentScrollY < lastScrollY || currentScrollY < 10) {
+            if (currentScrollY < 10) {
                 setIsVisible(true);
-            } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            } else {
                 setIsVisible(false);
             }
 
@@ -76,17 +76,17 @@ const Navbar = () => {
 
     const navItems = [
         { label: 'Projects', href: '/projects' },
-        { label: 'Packages', href: '#packages' },
+        { label: 'Packages', href: '/packages' },
         { label: 'Shop', href: '/shop' },
         { label: 'About', href: '/about' },
         { label: 'Contact', href: '/contact' },
-        { label: 'Blog', href: '#blog' },
+        { label: 'Blog', href: '/blog' },
     ];
 
     const companyItems = [
         { label: 'About Us', href: '/about' },
         { label: 'Contact', href: '/contact' },
-        { label: 'Blog', href: '#blog' },
+        { label: 'Blog', href: '/blog' },
     ];
 
     return (

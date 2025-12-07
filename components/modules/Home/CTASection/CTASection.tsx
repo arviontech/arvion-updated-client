@@ -205,7 +205,7 @@ const CTASection = () => {
                 {/* Bottom CTA */}
                 <div className="text-center mt-12 sm:mt-16">
                     <GlassmorphismButton
-                        href="#contact"
+                        href="/contact"
                         size="lg"
                         rightIcon={<ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />}
                         className="hover:scale-105"

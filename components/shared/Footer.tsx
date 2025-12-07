@@ -3,11 +3,46 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Facebook, Twitter, Linkedin, Instagram, Youtube, Mail, Phone, MapPin, ArrowRight, Send, CheckCircle } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Container from './Container';
+import { getContactInfo, ContactInfo } from '@/services/contactInfo/ContactInfoService';
+import { subscribe } from '@/services/subscription/SubscriptionService';
+import { getAllSocialLinks, SocialLink } from '@/services/socialLinks/SocialLinksService';
 
 const Footer = () => {
     const [email, setEmail] = useState('');
+    const [contactInfo, setContactInfo] = useState<ContactInfo | null>(null);
+    const [socialLinks, setSocialLinks] = useState<SocialLink[]>([]);
+
+    useEffect(() => {
+        const fetchContactInfo = async () => {
+            try {
+                const data = await getContactInfo();
+                setContactInfo(data);
+            } catch (error) {
+                console.error('Failed to fetch contact info:', error);
+            }
+        };
+        
+        const fetchSocialLinks = async () => {
+            try {
+                const data = await getAllSocialLinks();
+                setSocialLinks(data);
+            } catch (error) {
+                console.error('Failed to fetch social links:', error);
+            }
+        };
+        
+        fetchContactInfo();
+        fetchSocialLinks();
+    }, []);
+
+    // Fallback contact info
+    const displayContact = contactInfo || {
+        email: 'info@arviontech.com',
+        phone: '+1 (234) 567-890',
+        address: '123 Tech Street, Silicon Valley\nCA 94025, United States'
+    };
     const [isSubscribed, setIsSubscribed] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -16,15 +51,17 @@ const Footer = () => {
         if (email) {
             setIsSubmitting(true);
 
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 1000));
-
-            setIsSubmitting(false);
-            setIsSubscribed(true);
-            setEmail('');
-
-            // Auto-hide toast after 5 seconds
-            setTimeout(() => setIsSubscribed(false), 5000);
+            try {
+                await subscribe(email);
+                setIsSubscribed(true);
+                setEmail('');
+                // Auto-hide toast after 5 seconds
+                setTimeout(() => setIsSubscribed(false), 5000);
+            } catch (error: any) {
+                alert(error.message || 'Failed to subscribe');
+            } finally {
+                setIsSubmitting(false);
+            }
         }
     };
 
@@ -62,13 +99,40 @@ const Footer = () => {
         { label: 'GDPR Compliance', href: '#gdpr' },
     ];
 
-    const socialLinks = [
-        { icon: Facebook, href: 'https://facebook.com', label: 'Facebook', color: 'hover:bg-blue-600' },
-        { icon: Twitter, href: 'https://twitter.com', label: 'Twitter', color: 'hover:bg-sky-500' },
-        { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn', color: 'hover:bg-blue-700' },
-        { icon: Instagram, href: 'https://instagram.com', label: 'Instagram', color: 'hover:bg-pink-600' },
-        { icon: Youtube, href: 'https://youtube.com', label: 'YouTube', color: 'hover:bg-red-600' },
+    // Map icon names to actual icons
+    const getIcon = (iconName: string) => {
+        const iconMap: { [key: string]: any } = {
+            Facebook,
+            Twitter,
+            Linkedin,
+            Instagram,
+            Youtube,
+        };
+        return iconMap[iconName] || Facebook;
+    };
+
+    // Get color for each platform
+    const getPlatformColor = (platform: string) => {
+        const colorMap: { [key: string]: string } = {
+            Facebook: 'hover:bg-blue-600',
+            Twitter: 'hover:bg-sky-500',
+            Linkedin: 'hover:bg-blue-700',
+            Instagram: 'hover:bg-pink-600',
+            Youtube: 'hover:bg-red-600',
+        };
+        return colorMap[platform] || 'hover:bg-gray-600';
+    };
+
+    // Fallback social links if API fails
+    const defaultSocialLinks = [
+        { platform: 'Facebook', url: 'https://facebook.com', icon: 'Facebook' },
+        { platform: 'Twitter', url: 'https://twitter.com', icon: 'Twitter' },
+        { platform: 'Linkedin', url: 'https://linkedin.com', icon: 'Linkedin' },
+        { platform: 'Instagram', url: 'https://instagram.com', icon: 'Instagram' },
+        { platform: 'Youtube', url: 'https://youtube.com', icon: 'Youtube' },
     ];
+
+    const displaySocialLinks = socialLinks.length > 0 ? socialLinks : defaultSocialLinks;
 
     return (
         <>
@@ -237,7 +301,7 @@ const Footer = () => {
 
                         {/* Contact Info */}
                         <div className="space-y-3">
-                            <a href="mailto:info@arviontech.com" className="flex items-center gap-3 text-gray-700 hover:text-cyan-600 transition-colors group">
+                            <a href={`mailto:${displayContact.email}`} className="flex items-center gap-3 text-gray-700 hover:text-cyan-600 transition-colors group">
                                 <div className="w-9 h-9 rounded-lg flex items-center justify-center transition-colors"
                                     style={{
                                         background: 'rgba(255, 255, 255, 0.3)',
@@ -249,10 +313,10 @@ const Footer = () => {
                                 </div>
                                 <span className="text-sm font-semibold"
                                     style={{ textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)' }}>
-                                    info@arviontech.com
+                                    {displayContact.email}
                                 </span>
                             </a>
-                            <a href="tel:+1234567890" className="flex items-center gap-3 text-gray-700 hover:text-cyan-600 transition-colors group">
+                            <a href={`tel:${displayContact.phone.replace(/\s/g, '')}`} className="flex items-center gap-3 text-gray-700 hover:text-cyan-600 transition-colors group">
                                 <div className="w-9 h-9 rounded-lg flex items-center justify-center transition-colors"
                                     style={{
                                         background: 'rgba(255, 255, 255, 0.3)',
@@ -264,7 +328,7 @@ const Footer = () => {
                                 </div>
                                 <span className="text-sm font-semibold"
                                     style={{ textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)' }}>
-                                    +1 (234) 567-890
+                                    {displayContact.phone}
                                 </span>
                             </a>
                             <div className="flex items-start gap-3 text-gray-700">
@@ -279,7 +343,12 @@ const Footer = () => {
                                 </div>
                                 <span className="text-sm leading-relaxed font-semibold"
                                     style={{ textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)' }}>
-                                    123 Tech Street, Silicon Valley<br />CA 94025, United States
+                                    {displayContact.address.split('\n').map((line, index) => (
+                                        <span key={index}>
+                                            {line}
+                                            {index < displayContact.address.split('\n').length - 1 && <br />}
+                                        </span>
+                                    ))}
                                 </span>
                             </div>
                         </div>
@@ -437,68 +506,6 @@ const Footer = () => {
                     </div>
                 </div>
 
-                {/* Trust Badges / Certifications (Optional) */}
-                <div className="pb-8 pt-4 border-t"
-                    style={{ borderColor: 'rgba(6, 182, 212, 0.05)' }}>
-                    <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
-                        <div className="text-xs text-gray-600 flex items-center gap-2 font-semibold">
-                            <div className="w-6 h-6 rounded-full flex items-center justify-center"
-                                style={{
-                                    background: 'rgba(255, 255, 255, 0.5)',
-                                    backdropFilter: 'blur(5px)',
-                                    WebkitBackdropFilter: 'blur(5px)',
-                                    border: '1px solid rgba(6, 182, 212, 0.2)',
-                                }}>
-                                <svg className="w-3 h-3 text-cyan-600" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                </svg>
-                            </div>
-                            <span>ISO 27001 Certified</span>
-                        </div>
-                        <div className="text-xs text-gray-600 flex items-center gap-2 font-semibold">
-                            <div className="w-6 h-6 rounded-full flex items-center justify-center"
-                                style={{
-                                    background: 'rgba(255, 255, 255, 0.5)',
-                                    backdropFilter: 'blur(5px)',
-                                    WebkitBackdropFilter: 'blur(5px)',
-                                    border: '1px solid rgba(139, 92, 246, 0.2)',
-                                }}>
-                                <svg className="w-3 h-3 text-violet-600" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                </svg>
-                            </div>
-                            <span>SOC 2 Type II</span>
-                        </div>
-                        <div className="text-xs text-gray-600 flex items-center gap-2 font-semibold">
-                            <div className="w-6 h-6 rounded-full flex items-center justify-center"
-                                style={{
-                                    background: 'rgba(255, 255, 255, 0.5)',
-                                    backdropFilter: 'blur(5px)',
-                                    WebkitBackdropFilter: 'blur(5px)',
-                                    border: '1px solid rgba(6, 182, 212, 0.2)',
-                                }}>
-                                <svg className="w-3 h-3 text-cyan-600" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                </svg>
-                            </div>
-                            <span>GDPR Compliant</span>
-                        </div>
-                        <div className="text-xs text-gray-600 flex items-center gap-2 font-semibold">
-                            <div className="w-6 h-6 rounded-full flex items-center justify-center"
-                                style={{
-                                    background: 'rgba(255, 255, 255, 0.5)',
-                                    backdropFilter: 'blur(5px)',
-                                    WebkitBackdropFilter: 'blur(5px)',
-                                    border: '1px solid rgba(139, 92, 246, 0.2)',
-                                }}>
-                                <svg className="w-3 h-3 text-violet-600" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                </svg>
-                            </div>
-                            <span>PCI DSS Compliant</span>
-                        </div>
-                    </div>
-                </div>
             </Container>
         </footer>
         </>

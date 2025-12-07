@@ -41,13 +41,16 @@ export interface BlogResponse {
 /**
  * Get all blogs
  */
-export const getAllBlogs = async (page: number = 1, limit: number = 10): Promise<BlogResponse> => {
+export const getAllBlogs = async (page: number = 1, limit: number = 10, search?: string): Promise<BlogResponse> => {
     try {
+        const params: any = { page, limit };
+        if (search) {
+            params.search = search;
+        }
+        
         const response = await axios.get<BlogResponse>(
             `${API_BASE_URL}/blogs`,
-            {
-                params: { page, limit }
-            }
+            { params }
         );
         return response.data;
     } catch (error) {

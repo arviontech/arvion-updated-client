@@ -37,7 +37,7 @@ const BannerContent = () => {
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 pt-4">
                 {/* Get In Touch - Glassmorphism Button */}
                 <GlassmorphismButton
-                    href="#contact"
+                    href="/contact"
                     size="md"
                     leftIcon={<Phone className="w-4 h-4 sm:w-5 sm:h-5" />}
                     rightIcon={<ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />}
@@ -49,7 +49,7 @@ const BannerContent = () => {
                 {/* Book a Meeting - Navbar Style Button in Glassmorphism Container */}
                 <GlassmorphismContainer className="w-auto">
                     <NavStyleButton
-                        href="#meeting"
+                        href="/contact"
                         size="md"
                         leftIcon={<Calendar className="w-4 h-4 sm:w-5 sm:h-5" />}
                         rightIcon={<ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />}

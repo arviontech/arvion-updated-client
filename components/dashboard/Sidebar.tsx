@@ -13,7 +13,10 @@ import {
     ChevronLeft,
     ChevronRight,
     Users,
-    Quote
+    Quote,
+    Phone,
+    Mail,
+    Share2
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -61,6 +64,21 @@ const Sidebar = () => {
             label: 'Testimonials',
             href: '/admin/testimonials',
             icon: Quote,
+        },
+        {
+            label: 'Contact Info',
+            href: '/admin/contact-info',
+            icon: Phone,
+        },
+        {
+            label: 'Subscriptions',
+            href: '/admin/subscriptions',
+            icon: Mail,
+        },
+        {
+            label: 'Social Links',
+            href: '/admin/social-links',
+            icon: Share2,
         },
     ];
 

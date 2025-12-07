@@ -1,60 +1,45 @@
 'use client';
 
-import { useState } from 'react';
-import { Plus, Search, Edit2, Trash2, DollarSign } from 'lucide-react';
-
-interface Package {
-    id: number;
-    name: string;
-    description: string;
-    price: string;
-    features: string[];
-    duration: string;
-    isPopular: boolean;
-}
+import { useState, useEffect } from 'react';
+import { Plus, Search, Edit2, Trash2 } from 'lucide-react';
+import { getAllPackages, deletePackage, Package } from '@/services/packages/PackageService';
 
 const PackagesPage = () => {
-    const [packages, setPackages] = useState<Package[]>([
-        {
-            id: 1,
-            name: 'Starter Package',
-            description: 'Perfect for small businesses and startups',
-            price: '$999',
-            features: ['Basic Website', '5 Pages', 'Responsive Design', 'SEO Optimization', '1 Month Support'],
-            duration: 'One-time',
-            isPopular: false
-        },
-        {
-            id: 2,
-            name: 'Professional Package',
-            description: 'Ideal for growing businesses',
-            price: '$2,499',
-            features: ['Custom Website', '15 Pages', 'Advanced Design', 'SEO & Analytics', '3 Months Support', 'CMS Integration'],
-            duration: 'One-time',
-            isPopular: true
-        },
-        {
-            id: 3,
-            name: 'Enterprise Package',
-            description: 'Complete solution for large organizations',
-            price: '$5,999',
-            features: ['Full Custom Solution', 'Unlimited Pages', 'Premium Design', 'Advanced SEO', '12 Months Support', 'E-commerce Integration', 'Custom Features'],
-            duration: 'One-time',
-            isPopular: false
-        },
-    ]);
-
+    const [packages, setPackages] = useState<Package[]>([]);
     const [searchQuery, setSearchQuery] = useState('');
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetchPackages();
+    }, []);
+
+    const fetchPackages = async () => {
+        try {
+            const data = await getAllPackages();
+            setPackages(data);
+        } catch (error) {
+            console.error('Error fetching packages:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const filteredPackages = packages.filter(pkg =>
         pkg.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    const handleDelete = (id: number) => {
+    const handleDelete = async (id: string) => {
         if (confirm('Are you sure you want to delete this package?')) {
-            setPackages(packages.filter(p => p.id !== id));
+            const success = await deletePackage(id);
+            if (success) {
+                setPackages(packages.filter(p => p._id !== id));
+            }
         }
     };
+
+    if (loading) {
+        return <div className="flex justify-center items-center h-64">Loading...</div>;
+    }
 
     return (
         <div className="space-y-6">
@@ -64,9 +49,7 @@ const PackagesPage = () => {
                     <h1 className="text-3xl font-bold text-gray-900 mb-2">Packages</h1>
                     <p className="text-gray-600">Manage service packages and pricing</p>
                 </div>
-                <button
-                    className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 font-medium transition-all shadow-lg shadow-blue-500/30"
-                >
+                <button className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 font-medium transition-all shadow-lg shadow-blue-500/30">
                     <Plus className="w-5 h-5" />
                     Add Package
                 </button>
@@ -90,11 +73,12 @@ const PackagesPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredPackages.map((pkg) => (
                     <div
-                        key={pkg.id}
-                        className={`bg-white rounded-xl p-6 shadow-sm border-2 hover:shadow-lg transition-all ${pkg.isPopular ? 'border-blue-500' : 'border-gray-100'
-                            }`}
+                        key={pkg._id}
+                        className={`bg-white rounded-xl p-6 shadow-sm border-2 hover:shadow-lg transition-all ${
+                            pkg.popular ? 'border-blue-500' : 'border-gray-100'
+                        }`}
                     >
-                        {pkg.isPopular && (
+                        {pkg.popular && (
                             <span className="inline-block px-3 py-1 bg-blue-500 text-white text-xs font-semibold rounded-full mb-4">
                                 POPULAR
                             </span>
@@ -105,7 +89,7 @@ const PackagesPage = () => {
 
                         <div className="flex items-baseline gap-2 mb-6">
                             <span className="text-4xl font-bold text-blue-600">{pkg.price}</span>
-                            <span className="text-gray-500">/{pkg.duration}</span>
+                            <span className="text-gray-500">{pkg.period}</span>
                         </div>
 
                         <div className="space-y-3 mb-6">
@@ -125,7 +109,7 @@ const PackagesPage = () => {
                                 Edit
                             </button>
                             <button
-                                onClick={() => handleDelete(pkg.id)}
+                                onClick={() => handleDelete(pkg._id)}
                                 className="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors"
                             >
                                 <Trash2 className="w-4 h-4" />
@@ -134,6 +118,12 @@ const PackagesPage = () => {
                     </div>
                 ))}
             </div>
+
+            {filteredPackages.length === 0 && !loading && (
+                <div className="text-center py-12">
+                    <p className="text-gray-500">No packages found.</p>
+                </div>
+            )}
         </div>
     );
 };
