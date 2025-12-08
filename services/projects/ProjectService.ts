@@ -105,7 +105,7 @@ export const getProjectsForSale = async (page: number = 1, limit: number = 10): 
 export const getProjectBySlug = async (slug: string): Promise<Project> => {
     try {
         const response = await axios.get<{ data: Project }>(
-            `${API_BASE_URL}/projects/${slug}`
+            `${API_BASE_URL}/projects/slug/${slug}`
         );
         return response.data.data;
     } catch (error) {
@@ -164,6 +164,7 @@ export const createProject = async (data: CreateProjectData, images: File[]): Pr
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
+                withCredentials: true,
             }
         );
         return response.data.data;
@@ -209,6 +210,7 @@ export const updateProject = async (id: string, data: Partial<CreateProjectData>
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
+                withCredentials: true,
             }
         );
         return response.data.data;
@@ -225,7 +227,9 @@ export const updateProject = async (id: string, data: Partial<CreateProjectData>
  */
 export const deleteProject = async (id: string): Promise<void> => {
     try {
-        await axios.delete(`${API_BASE_URL}/projects/${id}`);
+        await axios.delete(`${API_BASE_URL}/projects/${id}`, {
+            withCredentials: true,
+        });
     } catch (error) {
         if (axios.isAxiosError(error)) {
             throw new Error(error.response?.data?.message || 'Failed to delete project');

@@ -1,11 +1,14 @@
-import Navbar from "@/components/shared/Navbar";
+import OptimizedNavbar from "@/components/shared/OptimizedNavbar";
 import Footer from "@/components/shared/Footer";
+import { getNavigationData } from '@/services/navigation/NavigationService';
 
 
 const PublicLayout = ({ children }: { children: React.ReactNode }) => {
+    const { services, navItems } = getNavigationData();
+
     return (
         <>
-            <Navbar />
+            <OptimizedNavbar services={services} navItems={navItems} />
             {children}
             <Footer />
         </>

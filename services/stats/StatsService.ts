@@ -15,7 +15,10 @@ export interface DashboardStats {
 export const getDashboardStats = async (): Promise<DashboardStats> => {
     try {
         const response = await axios.get<{ data: DashboardStats }>(
-            `${API_BASE_URL}/stats`
+            `${API_BASE_URL}/stats`,
+            {
+                withCredentials: true,
+            }
         );
         return response.data.data;
     } catch (error) {

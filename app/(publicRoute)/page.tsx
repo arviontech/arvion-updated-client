@@ -1,3 +1,5 @@
+import { Metadata } from 'next';
+import { generateSEOMetadata } from '@/services/navigation/NavigationService';
 import BannerSection from "@/components/modules/Home/Banner/BannerSection";
 import CTASection from "@/components/modules/Home/CTASection/CTASection";
 import ServicesSection from "@/components/modules/Home/ServicesSection/ServicesSection";
@@ -6,6 +8,8 @@ import SkillSection from "@/components/modules/Home/SkillSection/SkillSection";
 import TeamSection from "@/components/modules/Home/TeamSection/TeamSection";
 import TestimonialSection from "@/components/modules/Home/TestimonialSection/TestimonialSection";
 import BlogSection from "@/components/modules/Home/BlogSection/BlogSection";
+
+export const metadata: Metadata = generateSEOMetadata('home');
 
 export default function Home() {
   return (

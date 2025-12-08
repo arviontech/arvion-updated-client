@@ -1,75 +1,207 @@
 'use client';
 
 import Container from "@/components/shared/Container";
-import Link from "next/link";
-import { ArrowRight, MessageCircle, Mail, Calendar } from "lucide-react";
+import { ArrowRight, MessageCircle, Rocket, Users } from "lucide-react";
+import Image from 'next/image';
+import GlassmorphismButton from '@/components/shared/GlassmorphismButton';
 
 const CTASection = () => {
+    const features = [
+        {
+            icon: <MessageCircle className="w-8 h-8 sm:w-10 sm:h-10" />,
+            title: 'Free Consultation',
+            description: 'Get expert advice on your project requirements and technical challenges with no commitment.',
+            highlights: [
+                'Project Assessment',
+                'Technology Recommendations',
+                'Timeline & Budget Planning'
+            ]
+        },
+        {
+            icon: <Rocket className="w-8 h-8 sm:w-10 sm:h-10" />,
+            title: 'Fast Delivery',
+            description: 'We deliver high-quality solutions on time with agile development processes and transparent communication.',
+            highlights: [
+                'Agile Development',
+                '24/7 Support',
+                'Regular Updates'
+            ]
+        }
+    ];
+
     return (
-        <section className="relative py-16 lg:py-24 bg-gradient-to-br from-blue-600 via-blue-700 to-purple-800 overflow-hidden">
-            {/* Background decorative elements */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-0 left-0 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
-                <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl" />
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:40px_40px]" />
+        <section className="relative py-16 sm:py-20 lg:py-28 overflow-hidden bg-gray-50">
+            {/* Subtle Gradient Background */}
+            <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/3 via-white to-violet-500/3" />
+
+                {/* Frosted glass background elements */}
+                <div className="absolute -top-10 sm:-top-20 left-[10%] sm:left-[20%] w-48 sm:w-64 md:w-80 h-48 sm:h-64 md:h-80 rounded-3xl transform -rotate-12"
+                    style={{
+                        background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%)',
+                        backdropFilter: 'blur(40px)',
+                        WebkitBackdropFilter: 'blur(40px)',
+                        border: '1px solid rgba(6, 182, 212, 0.15)',
+                        boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.3)'
+                    }}
+                />
+
+                <div className="absolute -bottom-16 sm:-bottom-32 left-[15%] sm:left-[25%] w-64 sm:w-80 md:w-96 h-48 sm:h-64 md:h-72 rounded-3xl transform rotate-6"
+                    style={{
+                        background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(6, 182, 212, 0.08) 100%)',
+                        backdropFilter: 'blur(40px)',
+                        WebkitBackdropFilter: 'blur(40px)',
+                        border: '1px solid rgba(139, 92, 246, 0.15)',
+                        boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.3)'
+                    }}
+                />
+
+                <div className="hidden sm:block absolute top-[15%] -right-10 sm:-right-20 w-24 sm:w-32 md:w-40 h-24 sm:h-32 md:h-40 rounded-full"
+                    style={{
+                        background: 'rgba(255, 255, 255, 0.12)',
+                        backdropFilter: 'blur(25px)',
+                        WebkitBackdropFilter: 'blur(25px)',
+                        border: '1px solid rgba(139, 92, 246, 0.2)',
+                    }}
+                />
             </div>
 
             <Container className="relative">
-                <div className="max-w-4xl mx-auto text-center">
-                    {/* Badge */}
-                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full mb-6 border border-white/20">
-                        <MessageCircle className="w-4 h-4 text-blue-200" />
-                        <span className="text-sm font-semibold text-blue-100 uppercase tracking-wide">Let's Talk</span>
+                {/* Header Section */}
+                <div className="text-center mb-12 sm:mb-16 lg:mb-20">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full border border-gray-200 mb-6">
+                        <div className="w-2 h-2 bg-gradient-to-r from-cyan-500 to-violet-500 rounded-full animate-pulse" />
+                        <span className="text-xs sm:text-sm font-semibold text-gray-700 uppercase tracking-wider">
+                            Ready to Start Your Digital Journey?
+                        </span>
                     </div>
 
-                    {/* Heading */}
-                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
-                        Ready to Start Your{" "}
-                        <span className="bg-gradient-to-r from-blue-200 to-purple-200 bg-clip-text text-transparent">
-                            Digital Journey?
-                        </span>
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-4 sm:mb-6 px-4">
+                        Let&apos;s Build Something{' '}
+                        <span className="bg-gradient-to-r from-cyan-500 to-violet-600 bg-clip-text text-transparent">Amazing Together</span>
                     </h2>
 
-                    {/* Description */}
-                    <p className="text-lg sm:text-xl text-blue-100 mb-10 max-w-2xl mx-auto leading-relaxed">
-                        Let's discuss how we can help transform your ideas into reality.
-                        Get a free consultation with our experts today.
+                    <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4">
+                        Transform your ideas into reality with our expert team. Get started with a free consultation and discover how we can help your business grow.
                     </p>
+                </div>
 
-                    {/* CTA Buttons */}
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-                        <Link
-                            href="#contact"
-                            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-700 font-semibold rounded-full hover:bg-blue-50 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 group"
+                {/* Features Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 relative">
+                    {/* Gradient layer under cards */}
+                    <div className="absolute inset-0 -inset-x-8 -inset-y-8 rounded-3xl pointer-events-none"
+                        style={{
+                            background: 'radial-gradient(ellipse at center, rgba(6, 182, 212, 0.08) 0%, rgba(139, 92, 246, 0.08) 50%, transparent 100%)',
+                            filter: 'blur(60px)',
+                            zIndex: 0,
+                        }}
+                    />
+                    {features.map((feature, index) => (
+                        <div
+                            key={index}
+                            className="group relative z-10"
                         >
-                            <Mail className="w-5 h-5" />
-                            Get in Touch
-                            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                        </Link>
-                        <Link
-                            href="#meeting"
-                            className="inline-flex items-center gap-2 px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-blue-700 transition-all"
-                        >
-                            <Calendar className="w-5 h-5" />
-                            Book a Meeting
-                        </Link>
-                    </div>
+                            {/* Feature Card - Glassmorphism */}
+                            <div
+                                className="relative rounded-2xl p-6 sm:p-8 transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+                                style={{
+                                    backdropFilter: 'blur(15px) saturate(180%)',
+                                    WebkitBackdropFilter: 'blur(15px) saturate(180%)',
+                                    border: '1px solid rgba(255, 255, 255, 0.25)',
+                                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.6), inset 0 -1px 1px rgba(255, 255, 255, 0.3)',
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.border = '1px solid rgba(6, 182, 212, 0.25)';
+                                    e.currentTarget.style.boxShadow = '0 10px 40px rgba(6, 182, 212, 0.12), 0 6px 20px rgba(139, 92, 246, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.65), inset 0 -1px 1px rgba(255, 255, 255, 0.35)';
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.border = '1px solid rgba(255, 255, 255, 0.25)';
+                                    e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.6), inset 0 -1px 1px rgba(255, 255, 255, 0.3)';
+                                }}
+                            >
+                                {/* Gradient background layer */}
+                                <div className="absolute inset-0 -z-10"
+                                    style={{
+                                        background: index === 0
+                                            ? 'linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%)'
+                                            : 'linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(6, 182, 212, 0.08) 100%)',
+                                    }}
+                                />
+                                {/* White transparent layer */}
+                                <div className="absolute inset-0 -z-9"
+                                    style={{
+                                        background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.15) 100%)',
+                                    }}
+                                />
 
-                    {/* Contact Info Cards */}
-                    <div className="grid sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
-                        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-                            <div className="text-2xl font-bold text-white mb-1">24/7</div>
-                            <p className="text-blue-100 text-sm">Support Available</p>
+                                {/* Decorative Element Image */}
+                                <div className={`absolute ${index === 0 ? '-bottom-16 -right-12 w-64 h-64' : '-bottom-16 -right-4 w-64 h-64'} opacity-50 pointer-events-none z-0`}
+                                    style={index === 0 ? { transform: 'scaleX(-1)' } : {}}>
+                                    <Image
+                                        src={index === 0 ? "/assets/element-2.png" : "/assets/element-4.png"}
+                                        alt=""
+                                        fill
+                                        className="object-contain"
+                                    />
+                                </div>
+
+                                {/* Icon */}
+                                <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full mb-4 sm:mb-6 group-hover:scale-105 transition-transform duration-300"
+                                    style={{
+                                        background: 'rgba(255, 255, 255, 0.25)',
+                                        backdropFilter: 'blur(10px)',
+                                        WebkitBackdropFilter: 'blur(10px)',
+                                        border: '1px solid rgba(255, 255, 255, 0.4)',
+                                        boxShadow: '0 4px 16px rgba(6, 182, 212, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.5)',
+                                    }}>
+                                    <div className="text-cyan-600">
+                                        {feature.icon}
+                                    </div>
+                                </div>
+
+                                {/* Title */}
+                                <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-gray-900 mb-3 sm:mb-4" style={{
+                                    textShadow: '0 2px 4px rgba(255, 255, 255, 0.9), 0 1px 2px rgba(255, 255, 255, 0.8)'
+                                }}>
+                                    {feature.title}
+                                </h3>
+
+                                {/* Description */}
+                                <p className="text-sm sm:text-base text-gray-800 leading-relaxed mb-6 sm:mb-8 font-semibold" style={{
+                                    textShadow: '0 1px 3px rgba(255, 255, 255, 0.8), 0 1px 2px rgba(255, 255, 255, 0.6)'
+                                }}>
+                                    {feature.description}
+                                </p>
+
+                                {/* Highlights List */}
+                                <div className="space-y-3">
+                                    {feature.highlights.map((highlight, idx) => (
+                                        <div
+                                            key={idx}
+                                            className="flex items-center gap-3 text-gray-900 hover:text-cyan-600 transition-colors group/item cursor-pointer"
+                                        >
+                                            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-600 group-hover/item:translate-x-1 transition-transform shrink-0" />
+                                            <span className="text-sm sm:text-base font-bold" style={{
+                                                textShadow: '0 1px 3px rgba(255, 255, 255, 0.9), 0 1px 2px rgba(255, 255, 255, 0.7)'
+                                            }}>{highlight}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
-                        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-                            <div className="text-2xl font-bold text-white mb-1">1 Hour</div>
-                            <p className="text-blue-100 text-sm">Response Time</p>
-                        </div>
-                        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-                            <div className="text-2xl font-bold text-white mb-1">Free</div>
-                            <p className="text-blue-100 text-sm">Initial Consultation</p>
-                        </div>
-                    </div>
+                    ))}
+                </div>
+
+                {/* Bottom CTA */}
+                <div className="text-center mt-12 sm:mt-16">
+                    <GlassmorphismButton
+                        href="/contact"
+                        size="lg"
+                        rightIcon={<ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />}
+                        className="hover:scale-105"
+                    >
+                        Get Started Today
+                    </GlassmorphismButton>
                 </div>
             </Container>
         </section>

@@ -159,8 +159,9 @@ const BlogCard = ({ blog, index = 0 }: BlogCardProps) => {
                     <Link
                         href={`/blog/${blog._id}`}
                         className="flex items-center gap-1 text-sm font-bold bg-gradient-to-r from-cyan-600 to-violet-600 bg-clip-text text-transparent transition-all group/link"
+                        aria-label={`Read full article: ${blog.blogTitle}`}
                     >
-                        Read More
+                        Read full article
                         <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform text-cyan-600" />
                     </Link>
                 </div>

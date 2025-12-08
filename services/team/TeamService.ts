@@ -48,7 +48,11 @@ export const getAllTeams = async (page: number = 1, limit: number = 10): Promise
         const response = await axios.get<TeamResponse>(
             `${API_BASE_URL}/teams`,
             {
-                params: { page, limit }
+                params: { 
+                    page, 
+                    limit,
+                    sort: 'createdAt'
+                }
             }
         );
         return response.data;

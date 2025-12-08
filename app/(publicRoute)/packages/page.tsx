@@ -1,10 +1,9 @@
+import { Metadata } from 'next';
+import { generateSEOMetadata } from '@/services/navigation/NavigationService';
 import Container from '@/components/shared/Container';
 import PackagesClient from '@/components/modules/Packages/PackagesClient';
 
-export const metadata = {
-    title: 'Packages | Arvion Tech',
-    description: 'Choose from our comprehensive service packages designed to meet your business needs.',
-};
+export const metadata: Metadata = generateSEOMetadata('packages');
 
 export default function PackagesPage() {
     return (

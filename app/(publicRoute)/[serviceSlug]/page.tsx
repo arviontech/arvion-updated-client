@@ -1,4 +1,6 @@
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { generateServiceSEOMetadata } from '@/services/navigation/NavigationService';
 import WebDevelopmentPage from '@/components/modules/ServiceDetails/WebDevelopment/WebDevelopmentPage';
 import AppDevelopmentPage from '@/components/modules/ServiceDetails/AppDevelopment/AppDevelopmentPage';
 import UiUxPage from '@/components/modules/ServiceDetails/UiUx/UiUxPage';
@@ -16,35 +18,14 @@ const validServices = [
     'ai-machine-learning'
 ];
 
-// Service metadata for SEO
-const serviceMetadata: Record<string, { title: string; description: string }> = {
-    'web-development': {
-        title: 'Web Development Services | Arvion Tech',
-        description: 'Build modern, scalable, and high-performance web applications with Arvion Tech. Expert web development services for your business.'
-    },
-    'app-development': {
-        title: 'App Development Services | Arvion Tech',
-        description: 'Create stunning mobile applications for iOS and Android with seamless user experiences.'
-    },
-    'ui-ux-design': {
-        title: 'UI/UX Design Services | Arvion Tech',
-        description: 'Design beautiful and intuitive interfaces that delight users and drive engagement.'
-    },
-    'cloud-solutions': {
-        title: 'Cloud Solutions | Arvion Tech',
-        description: 'Deploy and manage your applications on secure, scalable cloud infrastructure.'
-    },
-    'seo-optimization': {
-        title: 'SEO Optimization Services | Arvion Tech',
-        description: 'Boost your online visibility and drive organic traffic with expert SEO strategies.'
-    },
-    'ai-machine-learning': {
-        title: 'AI & Machine Learning Services | Arvion Tech',
-        description: 'Leverage cutting-edge AI and ML technologies to automate and innovate your business.'
-    }
-};
+// Generate static params for SSG optimization
+export async function generateStaticParams() {
+    return validServices.map((serviceSlug) => ({
+        serviceSlug,
+    }));
+}
 
-export async function generateMetadata({ params }: { params: Promise<{ serviceSlug: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ serviceSlug: string }> }): Promise<Metadata> {
     const { serviceSlug } = await params;
 
     if (!validServices.includes(serviceSlug)) {
@@ -53,7 +34,7 @@ export async function generateMetadata({ params }: { params: Promise<{ serviceSl
         };
     }
 
-    return serviceMetadata[serviceSlug];
+    return generateServiceSEOMetadata(serviceSlug);
 }
 
 export default async function ServiceDetailPage({ params }: { params: Promise<{ serviceSlug: string }> }) {

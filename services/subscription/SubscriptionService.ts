@@ -45,7 +45,10 @@ export const subscribe = async (email: string): Promise<Subscription> => {
 export const getAllSubscriptions = async (): Promise<Subscription[]> => {
     try {
         const response = await axios.get<SubscriptionsResponse>(
-            `${API_BASE_URL}/subscriptions`
+            `${API_BASE_URL}/subscriptions`,
+            {
+                withCredentials: true,
+            }
         );
         return response.data.data;
     } catch (error) {
@@ -61,7 +64,9 @@ export const getAllSubscriptions = async (): Promise<Subscription[]> => {
  */
 export const deleteSubscription = async (id: string): Promise<void> => {
     try {
-        await axios.delete(`${API_BASE_URL}/subscriptions/${id}`);
+        await axios.delete(`${API_BASE_URL}/subscriptions/${id}`, {
+            withCredentials: true,
+        });
     } catch (error) {
         if (axios.isAxiosError(error)) {
             throw new Error(error.response?.data?.message || 'Failed to delete subscription');

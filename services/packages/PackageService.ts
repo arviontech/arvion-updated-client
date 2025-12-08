@@ -26,77 +26,84 @@ export interface CreatePackageData {
     order?: number;
 }
 
-export interface PackageResponse {
-    statusCode: number;
-    success: boolean;
-    message: string;
-    data: Package | Package[];
-}
-
-const getAuthHeaders = () => {
-    const token = localStorage.getItem('token');
-    return {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-    };
-};
-
+/**
+ * Get all packages
+ */
 export const getAllPackages = async (): Promise<Package[]> => {
     try {
-        const response = await axios.get<PackageResponse>(`${API_BASE_URL}/packages`);
-        return Array.isArray(response.data.data) ? response.data.data : [];
+        const response = await axios.get<{ data: Package[] }>(`${API_BASE_URL}/packages`);
+        return response.data.data;
     } catch (error) {
-        console.error('Error fetching packages:', error);
-        return [];
+        if (axios.isAxiosError(error)) {
+            throw new Error(error.response?.data?.message || 'Failed to fetch packages');
+        }
+        throw new Error('An unexpected error occurred');
     }
 };
 
-export const getPackageById = async (id: string): Promise<Package | null> => {
+/**
+ * Get a single package by ID
+ */
+export const getPackageById = async (id: string): Promise<Package> => {
     try {
-        const response = await axios.get<PackageResponse>(`${API_BASE_URL}/packages/${id}`);
-        return response.data.data as Package;
+        const response = await axios.get<{ data: Package }>(`${API_BASE_URL}/packages/${id}`);
+        return response.data.data;
     } catch (error) {
-        console.error('Error fetching package:', error);
-        return null;
+        if (axios.isAxiosError(error)) {
+            throw new Error(error.response?.data?.message || 'Failed to fetch package');
+        }
+        throw new Error('An unexpected error occurred');
     }
 };
 
-export const createPackage = async (packageData: CreatePackageData): Promise<Package | null> => {
+/**
+ * Create a new package
+ */
+export const createPackage = async (data: CreatePackageData): Promise<Package> => {
     try {
-        const response = await axios.post<PackageResponse>(
-            `${API_BASE_URL}/packages`,
-            packageData,
-            { headers: getAuthHeaders() }
+        const response = await axios.post<{ data: Package }>(
+            `${API_BASE_URL}/packages`, 
+            data,
+            { withCredentials: true }
         );
-        return response.data.data as Package;
+        return response.data.data;
     } catch (error) {
-        console.error('Error creating package:', error);
-        throw error;
+        if (axios.isAxiosError(error)) {
+            throw new Error(error.response?.data?.message || 'Failed to create package');
+        }
+        throw new Error('An unexpected error occurred');
     }
 };
 
-export const updatePackage = async (id: string, packageData: Partial<CreatePackageData>): Promise<Package | null> => {
+/**
+ * Update a package by ID
+ */
+export const updatePackage = async (id: string, data: Partial<CreatePackageData>): Promise<Package> => {
     try {
-        const response = await axios.put<PackageResponse>(
-            `${API_BASE_URL}/packages/${id}`,
-            packageData,
-            { headers: getAuthHeaders() }
+        const response = await axios.put<{ data: Package }>(
+            `${API_BASE_URL}/packages/${id}`, 
+            data,
+            { withCredentials: true }
         );
-        return response.data.data as Package;
+        return response.data.data;
     } catch (error) {
-        console.error('Error updating package:', error);
-        throw error;
+        if (axios.isAxiosError(error)) {
+            throw new Error(error.response?.data?.message || 'Failed to update package');
+        }
+        throw new Error('An unexpected error occurred');
     }
 };
 
-export const deletePackage = async (id: string): Promise<boolean> => {
+/**
+ * Delete a package by ID
+ */
+export const deletePackage = async (id: string): Promise<void> => {
     try {
-        await axios.delete(`${API_BASE_URL}/packages/${id}`, {
-            headers: getAuthHeaders()
-        });
-        return true;
+        await axios.delete(`${API_BASE_URL}/packages/${id}`, { withCredentials: true });
     } catch (error) {
-        console.error('Error deleting package:', error);
-        return false;
+        if (axios.isAxiosError(error)) {
+            throw new Error(error.response?.data?.message || 'Failed to delete package');
+        }
+        throw new Error('An unexpected error occurred');
     }
 };

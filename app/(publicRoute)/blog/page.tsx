@@ -1,11 +1,10 @@
+import { Metadata } from 'next';
+import { generateSEOMetadata } from '@/services/navigation/NavigationService';
 import Container from '@/components/shared/Container';
 import BlogClient from '@/components/modules/Blog/BlogClient';
 import { getAllBlogs, type Blog } from '@/services/blogs/BlogService';
 
-export const metadata = {
-    title: 'Blog | Arvion Tech',
-    description: 'Stay updated with the latest trends in technology, design, and development.',
-};
+export const metadata: Metadata = generateSEOMetadata('blog');
 
 export default async function BlogPage() {
     let initialBlogs: Blog[] = [];
@@ -36,7 +35,7 @@ export default async function BlogPage() {
                         Latest News & <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#703eff] to-[#0254b9]">Insights</span>
                     </h1>
                     <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                        Stay updated with the latest trends in technology, design, and development.
+                        Stay updated with the latest web development trends, tutorials, and insights from our experts.
                     </p>
                 </div>
 

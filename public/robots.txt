@@ -1,0 +1,25 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://arviontech.com/sitemap.xml
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /api/
+
+# Allow important pages
+Allow: /
+Allow: /about
+Allow: /contact
+Allow: /projects
+Allow: /blog
+Allow: /packages
+Allow: /shop
+Allow: /web-development
+Allow: /app-development
+Allow: /ui-ux-design
+Allow: /cloud-solutions
+Allow: /seo-optimization
+Allow: /ai-machine-learning
