@@ -39,28 +39,6 @@ const TeamSection = () => {
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 {/* Subtle Gradient Background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/3 via-white to-violet-500/3" />
-
-                {/* Decorative frosted glass shapes */}
-                <div className="absolute top-20 right-10 w-96 h-96 rounded-full"
-                    style={{
-                        background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%)',
-                        backdropFilter: 'blur(40px)',
-                        WebkitBackdropFilter: 'blur(40px)',
-                        border: '1px solid rgba(6, 182, 212, 0.15)',
-                        boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.3)',
-                        filter: 'blur(60px)'
-                    }}
-                />
-                <div className="absolute bottom-20 left-10 w-96 h-96 rounded-full"
-                    style={{
-                        background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(6, 182, 212, 0.08) 100%)',
-                        backdropFilter: 'blur(40px)',
-                        WebkitBackdropFilter: 'blur(40px)',
-                        border: '1px solid rgba(139, 92, 246, 0.15)',
-                        boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.3)',
-                        filter: 'blur(60px)'
-                    }}
-                />
             </div>
 
             <Container className="mb-12 sm:mb-16 relative">

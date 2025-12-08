@@ -82,27 +82,6 @@ const IndustrySolutionsSection = () => {
             {/* Background decorative elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/3 via-white to-violet-500/3" />
-
-                <div className="absolute top-0 left-0 w-96 h-96 rounded-full"
-                    style={{
-                        background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(6, 182, 212, 0.08) 100%)',
-                        backdropFilter: 'blur(40px)',
-                        WebkitBackdropFilter: 'blur(40px)',
-                        border: '1px solid rgba(139, 92, 246, 0.15)',
-                        boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.3)',
-                        filter: 'blur(60px)'
-                    }}>
-                </div>
-                <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full"
-                    style={{
-                        background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%)',
-                        backdropFilter: 'blur(40px)',
-                        WebkitBackdropFilter: 'blur(40px)',
-                        border: '1px solid rgba(6, 182, 212, 0.15)',
-                        boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.3)',
-                        filter: 'blur(60px)'
-                    }}>
-                </div>
             </div>
 
             <div className="relative max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
