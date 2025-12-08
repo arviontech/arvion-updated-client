@@ -2,8 +2,13 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { HeroData } from '@/data/services/types';
 
-export default function HeroSection() {
+interface Props {
+    data: HeroData;
+}
+
+export default function HeroSection({ data }: Props) {
     return (
         <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 bg-gray-50 overflow-hidden">
             {/* Background decorative elements */}
@@ -26,24 +31,26 @@ export default function HeroSection() {
                                 SERVICES
                             </Link>
                             <span className="text-gray-300">/</span>
-                            <span className="bg-gradient-to-r from-cyan-600 to-violet-600 bg-clip-text text-transparent px-3 py-1 rounded-full text-xs tracking-wide font-bold">APP DEVELOPMENT</span>
+                            <span className="bg-gradient-to-r from-cyan-600 to-violet-600 bg-clip-text text-transparent px-3 py-1 rounded-full text-xs tracking-wide font-bold">
+                                {data.breadcrumb}
+                            </span>
                         </nav>
 
                         {/* Main Heading */}
                         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-[1.15] tracking-tight animate-fade-in-up animation-delay-100">
-                            Transforming Ideas into <br className="hidden lg:block" />
-                            <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 via-blue-500 to-cyan-500">
-                                Powerful Mobile Experiences
+                            {data.title.line1} <br className="hidden lg:block" />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500">
+                                {data.title.highlight}
                             </span>
                             <br className="hidden lg:block" />
                             <span className="text-3xl sm:text-4xl lg:text-5xl text-gray-800 font-semibold mt-2 block">
-                                for iOS, Android, and Cross-Platform Success
+                                {data.title.line2}
                             </span>
                         </h1>
 
                         {/* Description */}
                         <p className="text-lg text-gray-600 mb-10 leading-relaxed max-w-2xl animate-fade-in-up animation-delay-200">
-                            We build feature-rich, high-performance mobile applications that engage users and drive business growth. From native iOS and Android apps to versatile cross-platform solutions, we deliver excellence on every screen.
+                            {data.description}
                         </p>
 
                         {/* CTA Buttons */}
@@ -61,7 +68,7 @@ export default function HeroSection() {
                                     e.currentTarget.style.boxShadow = '0 4px 16px rgba(6, 182, 212, 0.3)';
                                     e.currentTarget.style.transform = 'translateY(0)';
                                 }}>
-                                Start Your App
+                                Get Started
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                 </svg>
@@ -82,7 +89,7 @@ export default function HeroSection() {
                                     e.currentTarget.style.border = '1px solid rgba(255, 255, 255, 0.6)';
                                     e.currentTarget.style.transform = 'translateY(0)';
                                 }}>
-                                View Case Studies
+                                View Portfolio
                             </button>
                         </div>
                     </div>
@@ -90,32 +97,32 @@ export default function HeroSection() {
                     {/* Right: Hero Image (5 columns) */}
                     <div className="lg:col-span-5 relative animate-fade-in-up animation-delay-400">
                         {/* Decorative background blob behind image */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-linear-to-br from-blue-100/50 to-cyan-100/50 rounded-full blur-3xl -z-10" />
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-br from-blue-100/50 to-cyan-100/50 rounded-full blur-3xl -z-10" />
 
                         {/* Image Container with Glass Effect */}
                         <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/50 bg-white/10 backdrop-blur-sm p-2">
                             <div className="relative rounded-xl overflow-hidden aspect-4/3 w-full">
                                 <Image
-                                    src="/assets/services/app-development.jpg"
-                                    alt="Mobile App Development"
+                                    src={data.image}
+                                    alt={data.imageAlt}
                                     fill
                                     className="object-cover hover:scale-105 transition-transform duration-700"
                                     priority
                                 />
                                 {/* Overlay gradient */}
-                                <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                             </div>
 
                             {/* Floating Badge */}
                             <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-xl border border-gray-100 flex items-center gap-3 animate-float-slow">
                                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600">
                                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                                     </svg>
                                 </div>
                                 <div>
-                                    <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Platform</p>
-                                    <p className="text-sm font-bold text-gray-900">iOS & Android</p>
+                                    <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Technology</p>
+                                    <p className="text-sm font-bold text-gray-900">Modern Stack</p>
                                 </div>
                             </div>
                         </div>

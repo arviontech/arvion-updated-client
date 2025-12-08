@@ -1,39 +1,21 @@
 'use client';
 
-const DevelopmentStepsSection = () => {
-    const steps = [
-        {
-            number: "01",
-            title: "Research & Discovery",
-            description: "We conduct user research, competitive analysis, and stakeholder interviews to understand your users' needs and business goals."
-        },
-        {
-            number: "02",
-            title: "Information Architecture",
-            description: "We organize content and define user flows to create a logical, intuitive structure for your digital product."
-        },
-        {
-            number: "03",
-            title: "Wireframing & Prototyping",
-            description: "We create low and high-fidelity prototypes to validate concepts and gather feedback before visual design."
-        },
-        {
-            number: "04",
-            title: "Visual Design",
-            description: "We craft beautiful, on-brand interfaces with attention to typography, color, spacing, and visual hierarchy."
-        },
-        {
-            number: "05",
-            title: "Usability Testing",
-            description: "We test designs with real users to identify pain points and optimize the experience before development."
-        },
-        {
-            number: "06",
-            title: "Design Handoff & Support",
-            description: "We provide developers with detailed specs, assets, and ongoing support to ensure pixel-perfect implementation."
-        }
-    ];
+interface ProcessStep {
+    step: number;
+    title: string;
+    description: string;
+}
 
+interface Props {
+    data: {
+        badge: string;
+        title: string;
+        description?: string;
+        steps: ProcessStep[];
+    };
+}
+
+export default function ProcessSection({ data }: Props) {
     return (
         <section className="relative py-16 lg:py-24 bg-gray-50 overflow-hidden">
             {/* Background decorative elements */}
@@ -46,23 +28,33 @@ const DevelopmentStepsSection = () => {
                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full border border-gray-200 mb-6">
                         <div className="w-2 h-2 bg-gradient-to-r from-cyan-500 to-violet-500 rounded-full animate-pulse" />
                         <span className="text-xs sm:text-sm font-semibold text-gray-700 uppercase tracking-wider">
-                            Our Process
+                            {data.badge}
                         </span>
                     </div>
                     <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 leading-tight">
-                        Our Design <br className="hidden sm:block" />
-                        <span className="bg-gradient-to-r from-cyan-500 to-violet-600 bg-clip-text text-transparent">Process</span>
+                        {data.title.split(' ').map((word, index) => {
+                            if (word === 'Process' || word === 'Workflow' || word === 'Steps') {
+                                return (
+                                    <span key={index} className="bg-gradient-to-r from-cyan-500 to-violet-600 bg-clip-text text-transparent">
+                                        {word}{' '}
+                                    </span>
+                                );
+                            }
+                            return word + ' ';
+                        })}
                     </h2>
-                    <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                        A user-centered approach to creating exceptional digital experiences that solve real problems.
-                    </p>
+                    {data.description && (
+                        <p className="text-lg text-gray-600 max-w-2xl mx-auto font-semibold">
+                            {data.description}
+                        </p>
+                    )}
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-                    {steps.map((step, index) => (
+                    {data.steps.map((step, index) => (
                         <div
                             key={index}
-                            className="group p-8 rounded-2xl transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+                            className="group relative p-8 rounded-2xl transition-all duration-300 hover:-translate-y-1 overflow-hidden"
                             style={{
                                 backdropFilter: 'blur(15px) saturate(180%)',
                                 WebkitBackdropFilter: 'blur(15px) saturate(180%)',
@@ -78,7 +70,6 @@ const DevelopmentStepsSection = () => {
                                 e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.6), inset 0 -1px 1px rgba(255, 255, 255, 0.3)';
                             }}
                         >
-                            {/* Gradient background layer */}
                             <div className="absolute inset-0 rounded-2xl -z-10"
                                 style={{
                                     background: index % 2 === 0
@@ -87,20 +78,24 @@ const DevelopmentStepsSection = () => {
                                 }}>
                             </div>
 
-                            {/* White transparent layer */}
                             <div className="absolute inset-0 rounded-2xl -z-[9]"
                                 style={{
                                     background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.15) 100%)',
                                 }}>
                             </div>
 
-                            <span className="relative text-4xl font-bold bg-gradient-to-r from-cyan-600 to-violet-600 bg-clip-text text-transparent mb-6 block z-10">
-                                {step.number}
+                            <div className="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 rounded-full group-hover:scale-110 transition-transform duration-300"
+                                style={{
+                                    background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%)',
+                                }} />
+
+                            <span className="relative text-4xl font-bold mb-6 block bg-gradient-to-r from-cyan-600 to-violet-600 bg-clip-text text-transparent">
+                                {String(step.step).padStart(2, '0')}
                             </span>
-                            <h3 className="relative text-xl font-bold text-gray-900 mb-3 z-10">
+                            <h3 className="relative text-xl font-bold text-gray-900 mb-3 group-hover:text-cyan-600 transition-colors">
                                 {step.title}
                             </h3>
-                            <p className="relative text-gray-800 leading-relaxed font-semibold z-10">
+                            <p className="relative text-gray-800 leading-relaxed font-semibold">
                                 {step.description}
                             </p>
                         </div>
@@ -108,35 +103,43 @@ const DevelopmentStepsSection = () => {
                 </div>
 
                 {/* CTA Box */}
-                <div className="relative rounded-3xl overflow-hidden text-white p-8 md:p-12 lg:p-16 text-center"
+                <div className="relative rounded-3xl overflow-hidden p-8 md:p-12 lg:p-16 text-center"
                     style={{
-                        background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.9) 0%, rgba(139, 92, 246, 0.9) 100%)',
-                        boxShadow: '0 8px 32px rgba(6, 182, 212, 0.3)',
+                        backdropFilter: 'blur(15px) saturate(180%)',
+                        WebkitBackdropFilter: 'blur(15px) saturate(180%)',
+                        border: '1px solid rgba(255, 255, 255, 0.25)',
+                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.6), inset 0 -1px 1px rgba(255, 255, 255, 0.3)',
                     }}>
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-16 -mt-16" />
-                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -ml-16 -mb-16" />
+                    <div className="absolute inset-0 rounded-3xl -z-10"
+                        style={{
+                            background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.12) 0%, rgba(139, 92, 246, 0.12) 100%)',
+                        }}>
+                    </div>
+
+                    <div className="absolute inset-0 rounded-3xl -z-[9]"
+                        style={{
+                            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)',
+                        }}>
+                    </div>
 
                     <div className="relative z-10 max-w-3xl mx-auto">
-                        <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                            Ready to Elevate Your User Experience?
+                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                            Ready to Transform Your <span className="bg-gradient-to-r from-cyan-600 to-violet-600 bg-clip-text text-transparent">Digital Presence?</span>
                         </h2>
-                        <p className="text-white/90 text-lg mb-8">
-                            Let&apos;s discuss your design needs and how we can create intuitive, beautiful experiences that your users will love.
+                        <p className="text-gray-800 text-lg mb-8 font-semibold">
+                            Let&apos;s discuss your project and how we can help you achieve your business goals with our expert services.
                         </p>
-                        <button className="px-8 py-4 text-gray-700 font-semibold rounded-full transition-all"
+                        <button className="px-8 py-4 font-bold rounded-full transition-all text-white"
                             style={{
-                                background: 'rgba(255, 255, 255, 0.9)',
-                                backdropFilter: 'blur(10px)',
-                                WebkitBackdropFilter: 'blur(10px)',
-                                border: '1px solid rgba(255, 255, 255, 1)',
-                                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.1)',
+                                background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.9) 0%, rgba(139, 92, 246, 0.9) 100%)',
+                                boxShadow: '0 4px 16px rgba(6, 182, 212, 0.3)',
                             }}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.background = 'rgba(255, 255, 255, 1)';
+                                e.currentTarget.style.boxShadow = '0 6px 20px rgba(6, 182, 212, 0.4)';
                                 e.currentTarget.style.transform = 'translateY(-2px)';
                             }}
                             onMouseLeave={(e) => {
-                                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.9)';
+                                e.currentTarget.style.boxShadow = '0 4px 16px rgba(6, 182, 212, 0.3)';
                                 e.currentTarget.style.transform = 'translateY(0)';
                             }}>
                             Book a Meeting
@@ -146,6 +149,4 @@ const DevelopmentStepsSection = () => {
             </div>
         </section>
     );
-};
-
-export default DevelopmentStepsSection;
+}

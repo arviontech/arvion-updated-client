@@ -2,34 +2,21 @@
 
 import { useState } from 'react';
 
-const AppFAQSection = () => {
-    const faqs = [
-        {
-            question: "Do you build apps for both iOS and Android?",
-            answer: "Yes, we specialize in both native development (Swift for iOS, Kotlin for Android) and cross-platform solutions (React Native, Flutter) to reach users on all devices."
-        },
-        {
-            question: "How long does it take to develop a mobile app?",
-            answer: "A simple app can take 3-4 months, while more complex applications with custom backends and advanced features may take 6-9 months or more. We provide a detailed timeline after the discovery phase."
-        },
-        {
-            question: "Will you help upload the app to the App Store and Play Store?",
-            answer: "Absolutely. We handle the entire submission process, including preparing assets, descriptions, and ensuring compliance with Apple and Google guidelines for a smooth approval."
-        },
-        {
-            question: "Do you provide maintenance after the app is launched?",
-            answer: "Yes, we offer ongoing maintenance and support packages to ensure your app stays compatible with new OS versions, remains secure, and continues to perform optimally."
-        },
-        {
-            question: "Who owns the code after the project is complete?",
-            answer: "You do. Once the project is completed and paid for, you have full ownership of the source code and all intellectual property rights."
-        },
-        {
-            question: "Can you update an existing mobile app?",
-            answer: "Yes, we can take over existing codebases to fix bugs, improve performance, add new features, or completely refactor the app with modern technologies."
-        }
-    ];
+interface FAQ {
+    question: string;
+    answer: string;
+}
 
+interface Props {
+    data: {
+        badge: string;
+        title: string;
+        description?: string;
+        questions: FAQ[];
+    };
+}
+
+export default function FAQSection({ data }: Props) {
     const [openIndex, setOpenIndex] = useState<number | null>(0);
 
     return (
@@ -44,22 +31,35 @@ const AppFAQSection = () => {
                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full border border-gray-200 mb-6">
                         <div className="w-2 h-2 bg-gradient-to-r from-cyan-500 to-violet-500 rounded-full animate-pulse" />
                         <span className="text-xs sm:text-sm font-semibold text-gray-700 uppercase tracking-wider">
-                            Common Questions
+                            {data.badge}
                         </span>
                     </div>
                     <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 leading-tight">
-                        Frequently Asked <span className="bg-gradient-to-r from-cyan-500 to-violet-600 bg-clip-text text-transparent">Questions</span>
+                        {data.title.split('Questions').map((part, index) => {
+                            if (index === 0) {
+                                return <span key={index}>{part}</span>;
+                            }
+                            return (
+                                <span key={index}>
+                                    <span className="bg-gradient-to-r from-cyan-500 to-violet-600 bg-clip-text text-transparent">
+                                        Questions
+                                    </span>
+                                </span>
+                            );
+                        })}
                     </h2>
-                    <p className="text-lg text-gray-600 font-semibold">
-                        Everything you need to know about our mobile app development services.
-                    </p>
+                    {data.description && (
+                        <p className="text-lg text-gray-600 font-semibold">
+                            {data.description}
+                        </p>
+                    )}
                 </div>
 
                 <div className="space-y-4">
-                    {faqs.map((faq, index) => (
+                    {data.questions.map((faq, index) => (
                         <div
                             key={index}
-                            className="relative rounded-xl overflow-hidden transition-all duration-300"
+                            className="rounded-xl overflow-hidden transition-all duration-300"
                             style={{
                                 backdropFilter: 'blur(15px) saturate(180%)',
                                 WebkitBackdropFilter: 'blur(15px) saturate(180%)',
@@ -69,7 +69,6 @@ const AppFAQSection = () => {
                                     : '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.6), inset 0 -1px 1px rgba(255, 255, 255, 0.3)',
                             }}
                         >
-                            {/* Gradient background layer */}
                             <div className="absolute inset-0 rounded-xl -z-10"
                                 style={{
                                     background: index % 2 === 0
@@ -78,7 +77,6 @@ const AppFAQSection = () => {
                                 }}>
                             </div>
 
-                            {/* White transparent layer */}
                             <div className="absolute inset-0 rounded-xl -z-[9]"
                                 style={{
                                     background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.15) 100%)',
@@ -121,6 +119,4 @@ const AppFAQSection = () => {
             </div>
         </section>
     );
-};
-
-export default AppFAQSection;
+}

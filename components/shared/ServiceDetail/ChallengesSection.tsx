@@ -1,54 +1,26 @@
 'use client';
 
-const ChallengesSection = () => {
-    const challenges = [
-        {
-            title: "Outdated Websites Limiting Growth",
-            description: "Legacy systems that can't keep up with modern market demands or user expectations.",
-            solution: "We modernize your stack with scalable, future-proof technologies.",
-            icon: (
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-            )
-        },
-        {
-            title: "Low Conversion Rates",
-            description: "Poor user experience and checkout flows that cause customers to abandon their carts.",
-            solution: "We optimize UX/UI and streamline user journeys to boost conversions.",
-            icon: (
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                </svg>
-            )
-        },
-        {
-            title: "Security Vulnerabilities",
-            description: "Weak defenses that leave your business and customer data exposed to threats.",
-            solution: "We implement enterprise-grade security protocols and regular audits.",
-            icon: (
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-            )
-        },
-        {
-            title: "Lack of Scalability",
-            description: "Architectures that crash or slow down when traffic spikes or business grows.",
-            solution: "We build cloud-native solutions designed to scale effortlessly.",
-            icon: (
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                </svg>
-            )
-        }
-    ];
+interface Challenge {
+    title: string;
+    description: string;
+    solution: string;
+    icon: React.ReactNode;
+}
 
+interface Props {
+    data: {
+        badge: string;
+        title: string;
+        description?: string;
+        items: Challenge[];
+    };
+}
+
+export default function ChallengesSection({ data }: Props) {
     return (
         <section className="relative py-16 lg:py-24 bg-gray-50 overflow-hidden">
             {/* Background decorative elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                {/* Subtle Gradient Background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/3 via-white to-violet-500/3" />
             </div>
 
@@ -57,19 +29,35 @@ const ChallengesSection = () => {
                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full border border-gray-200 mb-6">
                         <div className="w-2 h-2 bg-gradient-to-r from-cyan-500 to-violet-500 rounded-full animate-pulse" />
                         <span className="text-xs sm:text-sm font-semibold text-gray-700 uppercase tracking-wider">
-                            Solutions That Work
+                            {data.badge}
                         </span>
                     </div>
                     <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 leading-tight">
-                        Common Business <span className="bg-gradient-to-r from-cyan-500 to-violet-600 bg-clip-text text-transparent">Challenges We Solve</span>
+                        {data.title.split('Challenges We Solve').map((part, index) => {
+                            if (index === 0 && part.trim()) {
+                                return <span key={index}>{part}</span>;
+                            }
+                            if (index > 0) {
+                                return (
+                                    <span key={index}>
+                                        <span className="bg-gradient-to-r from-cyan-500 to-violet-600 bg-clip-text text-transparent">
+                                            Challenges We Solve
+                                        </span>
+                                    </span>
+                                );
+                            }
+                            return null;
+                        })}
                     </h2>
-                    <p className="text-lg text-gray-600 max-w-2xl mx-auto font-semibold">
-                        We identify and eliminate the technical roadblocks standing between you and your business goals.
-                    </p>
+                    {data.description && (
+                        <p className="text-lg text-gray-600 max-w-2xl mx-auto font-semibold">
+                            {data.description}
+                        </p>
+                    )}
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {challenges.map((challenge, index) => (
+                    {data.items.map((challenge, index) => (
                         <div
                             key={index}
                             className="group flex gap-6 p-6 rounded-2xl transition-all duration-300 hover:-translate-y-1"
@@ -88,7 +76,6 @@ const ChallengesSection = () => {
                                 e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.6), inset 0 -1px 1px rgba(255, 255, 255, 0.3)';
                             }}
                         >
-                            {/* Gradient background layer */}
                             <div className="absolute inset-0 rounded-2xl -z-10"
                                 style={{
                                     background: index % 2 === 0
@@ -97,7 +84,6 @@ const ChallengesSection = () => {
                                 }}>
                             </div>
 
-                            {/* White transparent layer */}
                             <div className="absolute inset-0 rounded-2xl -z-[9]"
                                 style={{
                                     background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.15) 100%)',
@@ -118,19 +104,13 @@ const ChallengesSection = () => {
                                 </div>
                             </div>
                             <div className="relative z-10">
-                                <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-cyan-600 transition-colors"
-                                    style={{
-                                    }}>
+                                <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-cyan-600 transition-colors">
                                     {challenge.title}
                                 </h3>
-                                <p className="text-gray-800 mb-4 font-semibold"
-                                    style={{
-                                    }}>
+                                <p className="text-gray-800 mb-4 font-semibold">
                                     {challenge.description}
                                 </p>
-                                <div className="flex items-center gap-2 text-sm font-bold"
-                                    style={{
-                                    }}>
+                                <div className="flex items-center gap-2 text-sm font-bold">
                                     <div className="w-5 h-5 rounded-full flex items-center justify-center"
                                         style={{
                                             background: 'rgba(255, 255, 255, 0.4)',
@@ -152,6 +132,4 @@ const ChallengesSection = () => {
             </div>
         </section>
     );
-};
-
-export default ChallengesSection;
+}
